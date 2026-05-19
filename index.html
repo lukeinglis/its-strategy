@@ -129,11 +129,15 @@
     /* Algorithm modal */
     .alg-modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .alg-modal-overlay.open { opacity: 1; pointer-events: auto; }
-    .alg-modal { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; width: 95%; max-width: 1100px; max-height: 90vh; overflow: hidden; transform: scale(0.95); transition: transform 0.3s ease; }
+    .alg-modal { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; width: 95%; max-width: 1100px; max-height: 90vh; overflow: hidden; transform: scale(0.95); transition: transform 0.3s ease; display: flex; flex-direction: column; }
     .alg-modal-overlay.open .alg-modal { transform: scale(1); }
-    .alg-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--card-border); }
-    .alg-modal-body { padding: 32px 40px; display: flex; flex-direction: column; align-items: center; }
-    .alg-modal-footer { padding: 16px 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; }
+    .alg-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid var(--card-border); flex-shrink: 0; }
+    .alg-modal-content { display: flex; flex: 1; min-height: 0; }
+    .alg-modal-viz { flex: 1; padding: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 0; }
+    .alg-modal-viz svg { width: 100%; height: auto; }
+    .alg-modal-sidebar { width: 280px; flex-shrink: 0; padding: 24px; border-left: 1px solid var(--card-border); overflow-y: auto; }
+    @media (max-width: 768px) { .alg-modal-content { flex-direction: column; } .alg-modal-sidebar { width: 100%; border-left: none; border-top: 1px solid var(--card-border); } }
+    .alg-modal-footer { padding: 16px 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 
     /* Animation elements */
     .anim-node { opacity: 0; transform: scale(0.8); transition: opacity 0.4s ease, transform 0.4s ease; }
@@ -1254,8 +1258,12 @@ X-ITS-Algorithm: self_consistency</code>
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
-      <div class="alg-modal-body">
-        <div id="alg-modal-svg"></div>
+      <div class="alg-modal-content">
+        <div class="alg-modal-viz">
+          <div id="alg-modal-svg"></div>
+        </div>
+        <div class="alg-modal-sidebar" id="alg-modal-sidebar">
+        </div>
       </div>
       <div class="alg-modal-footer">
         <button id="alg-btn-prev" class="t-text-secondary hover:t-text-heading text-sm font-bold px-4 py-2 rounded border t-card-border transition-colors" disabled>Prev</button>
@@ -1319,11 +1327,14 @@ X-ITS-Algorithm: self_consistency</code>
     let algSteps = [];
     let algAnimTimer = null;
 
+    const algSidebar = document.getElementById('alg-modal-sidebar');
+
     function openAlgModal(alg) {
       const config = algConfigs[alg];
       if (!config) return;
       algTitle.textContent = config.title;
       algSvg.innerHTML = config.svg;
+      algSidebar.innerHTML = config.sidebar || '';
       algSteps = config.steps;
       algCurrentStep = 0;
       showAlgStep(0);
@@ -1392,6 +1403,21 @@ X-ITS-Algorithm: self_consistency</code>
     const algConfigs = {
       sc: {
         title: 'Self-Consistency',
+        sidebar: `
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">How it works</h4>
+          <p class="text-sm t-text-secondary mb-4">Generate N independent responses to the same prompt, then select the most common answer through majority voting.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Best for</h4>
+          <ul class="text-sm t-text-secondary space-y-1 mb-4">
+            <li>Factual questions</li>
+            <li>Classification tasks</li>
+            <li>Tool calling (hierarchical voting)</li>
+            <li>Structured output</li>
+          </ul>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Key feature</h4>
+          <p class="text-sm t-text-secondary mb-4">Supports hierarchical tool voting: vote on tool name first, then on arguments. This is what powers the OpenShift Lightspeed results.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">When to start here</h4>
+          <p class="text-sm t-text-secondary">Self-Consistency is the default recommendation. It works well on most tasks and requires no reward model or external scorer.</p>
+        `,
         steps: [
           { text: 'Prompt comes in', duration: 1200 },
           { text: 'N candidates are generated in parallel', duration: 1500 },
@@ -1400,7 +1426,7 @@ X-ITS-Algorithm: self_consistency</code>
           { text: 'Final output is returned', duration: 1500 }
         ],
         svg: `
-          <svg viewBox="0 0 600 260" class="w-full" style="max-height: 500px;">
+          <svg viewBox="0 0 600 260" class="w-full" style="max-height: none;">
             <!-- Step 0: Prompt -->
             <g data-step="0" class="anim-node">
               <rect x="20" y="100" width="90" height="45" rx="8" fill="#EE0000"/>
@@ -1471,6 +1497,20 @@ X-ITS-Algorithm: self_consistency</code>
       },
       bon: {
         title: 'Best-of-N',
+        sidebar: `
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">How it works</h4>
+          <p class="text-sm t-text-secondary mb-4">Generate N candidate responses, score each one with an LLM judge or reward model, and select the highest-scoring response.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Best for</h4>
+          <ul class="text-sm t-text-secondary space-y-1 mb-4">
+            <li>Open-ended generation</li>
+            <li>Quality-sensitive tasks</li>
+            <li>Tasks where a reward model is available</li>
+          </ul>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Key feature</h4>
+          <p class="text-sm t-text-secondary mb-4">Uses a general-purpose, plug-and-play reward model that requires no training. Scores are based on quality, not just agreement.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">vs Self-Consistency</h4>
+          <p class="text-sm t-text-secondary">SC votes on the most common answer. BoN scores on quality. Use BoN when the best answer may not be the most frequent one.</p>
+        `,
         steps: [
           { text: 'Prompt comes in', duration: 1200 },
           { text: 'N candidates are generated in parallel', duration: 1500 },
@@ -1479,7 +1519,7 @@ X-ITS-Algorithm: self_consistency</code>
           { text: 'Final output is returned', duration: 1500 }
         ],
         svg: `
-          <svg viewBox="0 0 640 260" class="w-full" style="max-height: 500px;">
+          <svg viewBox="0 0 640 260" class="w-full" style="max-height: none;">
             <!-- Step 0: Prompt -->
             <g data-step="0" class="anim-node">
               <rect x="20" y="100" width="90" height="45" rx="8" fill="#EE0000"/>
@@ -1554,6 +1594,20 @@ X-ITS-Algorithm: self_consistency</code>
       },
       beam: {
         title: 'Beam Search',
+        sidebar: `
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">How it works</h4>
+          <p class="text-sm t-text-secondary mb-4">Explore multiple reasoning paths step by step. At each step, a process reward model scores all active paths and the lowest-scoring ones are pruned.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Best for</h4>
+          <ul class="text-sm t-text-secondary space-y-1 mb-4">
+            <li>Multi-step reasoning</li>
+            <li>Math and logic problems</li>
+            <li>Tasks with clear intermediate steps</li>
+          </ul>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Key feature</h4>
+          <p class="text-sm t-text-secondary mb-4">Uses a process reward model (PRM) to evaluate partial responses at each step, not just the final output. This catches bad reasoning early.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Tradeoff</h4>
+          <p class="text-sm t-text-secondary">Pruning saves compute but risks dropping paths that start weak and finish strong. See Particle Filtering for the alternative.</p>
+        `,
         steps: [
           { text: 'Prompt comes in', duration: 1200 },
           { text: 'N candidates are generated', duration: 1200 },
@@ -1568,7 +1622,7 @@ X-ITS-Algorithm: self_consistency</code>
           { text: 'Response is returned', duration: 1500 }
         ],
         svg: `
-          <svg viewBox="0 0 750 220" class="w-full" style="max-height: 500px;">
+          <svg viewBox="0 0 750 220" class="w-full" style="max-height: none;">
             <!-- Column labels -->
             <text data-step="1" class="anim-node" x="145" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 1</text>
             <text data-step="4" class="anim-node" x="310" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 2</text>
@@ -1727,6 +1781,20 @@ X-ITS-Algorithm: self_consistency</code>
       },
       pf: {
         title: 'Particle Filtering',
+        sidebar: `
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">How it works</h4>
+          <p class="text-sm t-text-secondary mb-4">Like Beam Search, but no paths are dropped. All particles survive every step through probabilistic resampling, preserving diversity.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Best for</h4>
+          <ul class="text-sm t-text-secondary space-y-1 mb-4">
+            <li>Complex multi-step problems</li>
+            <li>Tool calling workflows</li>
+            <li>Tasks where early scoring is unreliable</li>
+          </ul>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Key advantage</h4>
+          <p class="text-sm t-text-secondary mb-4">A path that scores low at Step 1 can still win at Step 3. Beam Search would have pruned it. This matters when early steps are noisy or misleading.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Variants</h4>
+          <p class="text-sm t-text-secondary">Includes Entropic Particle Filtering (ePF) which uses temperature annealing for more robust exploration, and Particle Gibbs for multiple iteration passes.</p>
+        `,
         steps: [
           { text: 'Prompt comes in', duration: 1200 },
           { text: 'N candidates are generated', duration: 1200 },
@@ -1741,7 +1809,7 @@ X-ITS-Algorithm: self_consistency</code>
           { text: 'Response is returned', duration: 1500 }
         ],
         svg: `
-          <svg viewBox="0 0 750 220" class="w-full" style="max-height: 500px;">
+          <svg viewBox="0 0 750 220" class="w-full" style="max-height: none;">
             <!-- Column labels -->
             <text data-step="1" class="anim-node" x="145" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 1</text>
             <text data-step="4" class="anim-node" x="330" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 2</text>
