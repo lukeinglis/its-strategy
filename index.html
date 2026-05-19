@@ -135,7 +135,6 @@
       <div class="flex items-center gap-3">
         <img src="assets/rh-ai-logo-white.png" alt="Red Hat AI" class="h-7 logo-dark">
         <img src="assets/rh-ai-logo-black.png" alt="Red Hat AI" class="h-7 logo-light">
-        <span class="t-text-secondary text-sm font-body hidden sm:inline">AI Innovation Team</span>
       </div>
       <div class="hidden md:flex items-center gap-6 text-sm font-medium">
         <a href="#hero" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Overview</a>
@@ -143,8 +142,8 @@
         <a href="#results" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Results</a>
         <a href="#use-cases" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Use Cases</a>
         <a href="#how-to-use" class="nav-link t-text-secondary hover:t-text-heading transition-colors">How to Use</a>
-        <a href="#roadmap" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Roadmap</a>
         <a href="#landscape" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Landscape</a>
+        <a href="#roadmap" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Roadmap</a>
         <a href="#publications" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Research</a>
         <a href="#team" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Team</a>
       </div>
@@ -168,8 +167,8 @@
         <a href="#results" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Results</a>
         <a href="#use-cases" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Use Cases</a>
         <a href="#how-to-use" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">How to Use</a>
-        <a href="#roadmap" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Roadmap</a>
         <a href="#landscape" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Landscape</a>
+        <a href="#roadmap" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Roadmap</a>
         <a href="#publications" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Research</a>
         <a href="#team" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Team</a>
       </div>
@@ -858,6 +857,39 @@ X-ITS-Algorithm: self_consistency</code>
     </div>
   </section>
 
+  <!-- Competitive Landscape -->
+  <section id="landscape" class="py-20 md:py-28 border-t t-card-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="fade-in font-display font-bold text-3xl md:text-4xl t-text-heading mb-4">Competitive Landscape</h2>
+      <p class="fade-in t-text-secondary text-lg mb-16 max-w-2xl">Every major provider now ships thinking budget controls. The market has validated inference-time compute scaling. Red Hat's differentiation: ITS as infrastructure, not as a model feature.</p>
+
+      <!-- Differentiators -->
+      <h3 class="fade-in font-display font-bold text-xl t-text-heading mb-6">Red Hat Differentiators</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="fade-in t-card border t-card-border rounded-lg p-6">
+          <div class="text-rh-red text-2xl mb-3">&#9670;</div>
+          <h4 class="font-display font-bold t-text-heading mb-2">Infrastructure-Level</h4>
+          <p class="text-sm t-text-secondary">ITS as an Envoy ext-proc gateway filter. Not baked into one model. Apply to any model, any deployment.</p>
+        </div>
+        <div class="fade-in fade-in-delay-1 t-card border t-card-border rounded-lg p-6">
+          <div class="text-rh-red text-2xl mb-3">&#9670;</div>
+          <h4 class="font-display font-bold t-text-heading mb-2">Vendor-Neutral</h4>
+          <p class="text-sm t-text-secondary">Works with any OpenAI-compatible model endpoint. Granite, Llama, Mistral, or proprietary APIs.</p>
+        </div>
+        <div class="fade-in fade-in-delay-2 t-card border t-card-border rounded-lg p-6">
+          <div class="text-rh-red text-2xl mb-3">&#9670;</div>
+          <h4 class="font-display font-bold t-text-heading mb-2">On-Prem Ready</h4>
+          <p class="text-sm t-text-secondary">No cloud dependency. Runs on-prem, air-gapped, disconnected. Enterprise-grade for regulated industries.</p>
+        </div>
+        <div class="fade-in fade-in-delay-3 t-card border t-card-border rounded-lg p-6">
+          <div class="text-rh-red text-2xl mb-3">&#9670;</div>
+          <h4 class="font-display font-bold t-text-heading mb-2">Open Source</h4>
+          <p class="text-sm t-text-secondary">its-hub on GitHub. Upstream-first development. CNCF alignment via llm-d and gateway architecture.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Roadmap -->
   <section id="roadmap" class="py-20 md:py-28 border-t t-card-border">
     <div class="max-w-6xl mx-auto px-6">
@@ -959,39 +991,6 @@ X-ITS-Algorithm: self_consistency</code>
               <p class="text-xs t-text-secondary mt-2">RHAISTRAT-1392 | New</p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Competitive Landscape -->
-  <section id="landscape" class="py-20 md:py-28 border-t t-card-border">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="fade-in font-display font-bold text-3xl md:text-4xl t-text-heading mb-4">Competitive Landscape</h2>
-      <p class="fade-in t-text-secondary text-lg mb-16 max-w-2xl">Every major provider now ships thinking budget controls. The market has validated inference-time compute scaling. Red Hat's differentiation: ITS as infrastructure, not as a model feature.</p>
-
-      <!-- Differentiators -->
-      <h3 class="fade-in font-display font-bold text-xl t-text-heading mb-6">Red Hat Differentiators</h3>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="fade-in t-card border t-card-border rounded-lg p-6">
-          <div class="text-rh-red text-2xl mb-3">&#9670;</div>
-          <h4 class="font-display font-bold t-text-heading mb-2">Infrastructure-Level</h4>
-          <p class="text-sm t-text-secondary">ITS as an Envoy ext-proc gateway filter. Not baked into one model. Apply to any model, any deployment.</p>
-        </div>
-        <div class="fade-in fade-in-delay-1 t-card border t-card-border rounded-lg p-6">
-          <div class="text-rh-red text-2xl mb-3">&#9670;</div>
-          <h4 class="font-display font-bold t-text-heading mb-2">Vendor-Neutral</h4>
-          <p class="text-sm t-text-secondary">Works with any OpenAI-compatible model endpoint. Granite, Llama, Mistral, or proprietary APIs.</p>
-        </div>
-        <div class="fade-in fade-in-delay-2 t-card border t-card-border rounded-lg p-6">
-          <div class="text-rh-red text-2xl mb-3">&#9670;</div>
-          <h4 class="font-display font-bold t-text-heading mb-2">On-Prem Ready</h4>
-          <p class="text-sm t-text-secondary">No cloud dependency. Runs on-prem, air-gapped, disconnected. Enterprise-grade for regulated industries.</p>
-        </div>
-        <div class="fade-in fade-in-delay-3 t-card border t-card-border rounded-lg p-6">
-          <div class="text-rh-red text-2xl mb-3">&#9670;</div>
-          <h4 class="font-display font-bold t-text-heading mb-2">Open Source</h4>
-          <p class="text-sm t-text-secondary">its-hub on GitHub. Upstream-first development. CNCF alignment via llm-d and gateway architecture.</p>
         </div>
       </div>
     </div>
