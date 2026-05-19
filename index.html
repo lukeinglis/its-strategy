@@ -125,6 +125,26 @@
     .logo-dark { display: none; }
     .dark .logo-light { display: none; }
     .dark .logo-dark { display: block; }
+
+    /* Algorithm modal */
+    .alg-modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .alg-modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .alg-modal { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; width: 95%; max-width: 1100px; max-height: 90vh; overflow: hidden; transform: scale(0.95); transition: transform 0.3s ease; }
+    .alg-modal-overlay.open .alg-modal { transform: scale(1); }
+    .alg-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--card-border); }
+    .alg-modal-body { padding: 32px 40px; display: flex; flex-direction: column; align-items: center; }
+    .alg-modal-footer { padding: 16px 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; }
+
+    /* Animation elements */
+    .anim-node { opacity: 0; transform: scale(0.8); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .anim-node.show { opacity: 1; transform: scale(1); }
+    .anim-line { stroke-dasharray: 200; stroke-dashoffset: 200; transition: stroke-dashoffset 0.5s ease; }
+    .anim-line.show { stroke-dashoffset: 0; }
+    .anim-step-text { min-height: 24px; transition: opacity 0.3s ease; }
+
+    /* Clickable card hint */
+    .alg-clickable { cursor: pointer; }
+    .alg-clickable:hover { border-color: #EE0000 !important; }
   </style>
 </head>
 <body class="t-body t-text">
@@ -351,7 +371,7 @@
       <h3 class="fade-in font-display font-bold text-xl t-text-heading mb-4">Algorithms</h3>
       <p class="fade-in t-text-secondary text-base mb-8 max-w-3xl">ITS Hub provides multiple algorithms, each approaching the same problem from a different angle. Self-Consistency is the default starting point; the others excel in specific scenarios. All share the same interface, so switching between them is a one-line code change.</p>
       <div class="grid sm:grid-cols-2 gap-4">
-        <div class="fade-in t-card border t-card-border rounded-lg p-6">
+        <div class="fade-in t-card border t-card-border rounded-lg p-6 alg-clickable" data-alg="sc">
           <h4 class="font-display font-bold t-text-heading mb-2">Self-Consistency</h4>
           <svg viewBox="0 0 280 70" class="w-full mb-3" style="max-height:70px">
             <rect x="2" y="22" width="40" height="26" rx="5" fill="#EE0000"/><text x="22" y="39" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="Red Hat Text">Prompt</text>
@@ -368,7 +388,7 @@
           <p class="text-sm t-text mb-3">Generate N responses, majority vote on answer. Supports hierarchical tool voting.</p>
           <p class="text-xs t-text-secondary">Best for: factual questions, classification, tool calling</p>
         </div>
-        <div class="fade-in fade-in-delay-1 t-card border t-card-border rounded-lg p-6">
+        <div class="fade-in fade-in-delay-1 t-card border t-card-border rounded-lg p-6 alg-clickable" data-alg="bon">
           <h4 class="font-display font-bold t-text-heading mb-2">Best-of-N</h4>
           <svg viewBox="0 0 280 70" class="w-full mb-3" style="max-height:70px">
             <rect x="2" y="22" width="40" height="26" rx="5" fill="#EE0000"/><text x="22" y="39" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="Red Hat Text">Prompt</text>
@@ -388,7 +408,7 @@
           <p class="text-sm t-text mb-3">Generate N candidates, score with a reward model or LLM-as-judge, select the highest-scoring response.</p>
           <p class="text-xs t-text-secondary">Best for: open-ended generation, quality-sensitive tasks</p>
         </div>
-        <div class="fade-in t-card border t-card-border rounded-lg p-6">
+        <div class="fade-in t-card border t-card-border rounded-lg p-6 alg-clickable" data-alg="beam">
           <h4 class="font-display font-bold t-text-heading mb-2">Beam Search</h4>
           <svg viewBox="0 0 280 70" class="w-full mb-3" style="max-height:70px">
             <rect x="115" y="2" width="50" height="18" rx="4" fill="#EE0000"/><text x="140" y="14" text-anchor="middle" fill="white" font-size="7" font-weight="bold" font-family="Red Hat Text">Start</text>
@@ -403,7 +423,7 @@
           <p class="text-sm t-text mb-3">Step-by-step generation with beam width control. Process reward models guide the search at each step.</p>
           <p class="text-xs t-text-secondary">Best for: multi-step reasoning, math, logic</p>
         </div>
-        <div class="fade-in fade-in-delay-1 t-card border t-card-border rounded-lg p-6">
+        <div class="fade-in fade-in-delay-1 t-card border t-card-border rounded-lg p-6 alg-clickable" data-alg="pf">
           <h4 class="font-display font-bold t-text-heading mb-2">Particle Filtering</h4>
           <svg viewBox="0 0 280 70" class="w-full mb-3" style="max-height:70px">
             <text x="10" y="14" fill="#aaa" font-size="7" font-weight="bold" font-family="Red Hat Text">P1</text>
@@ -1225,6 +1245,29 @@ X-ITS-Algorithm: self_consistency</code>
     </div>
   </footer>
 
+  <!-- Algorithm Modal -->
+  <div id="alg-modal-overlay" class="alg-modal-overlay">
+    <div class="alg-modal">
+      <div class="alg-modal-header">
+        <h3 id="alg-modal-title" class="font-display font-bold text-xl t-text-heading"></h3>
+        <button id="alg-modal-close" class="t-text-secondary hover:text-rh-red transition-colors p-1" aria-label="Close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="alg-modal-body">
+        <div id="alg-modal-svg"></div>
+      </div>
+      <div class="alg-modal-footer">
+        <button id="alg-btn-prev" class="t-text-secondary hover:t-text-heading text-sm font-bold px-4 py-2 rounded border t-card-border transition-colors" disabled>Prev</button>
+        <p id="alg-step-text" class="anim-step-text text-base t-text text-center flex-1 px-4 font-medium"></p>
+        <div class="flex items-center gap-3">
+          <span id="alg-step-num" class="text-xs t-text-secondary"></span>
+          <button id="alg-btn-next" class="text-sm font-bold px-4 py-2 rounded bg-rh-red hover:bg-rh-red-dark text-white transition-colors">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
@@ -1262,6 +1305,610 @@ X-ITS-Algorithm: self_consistency</code>
       root.classList.toggle('dark');
       localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
     });
+
+    // Algorithm modal system
+    const algOverlay = document.getElementById('alg-modal-overlay');
+    const algTitle = document.getElementById('alg-modal-title');
+    const algSvg = document.getElementById('alg-modal-svg');
+    const algStepText = document.getElementById('alg-step-text');
+    const algStepNum = document.getElementById('alg-step-num');
+    const algBtnPrev = document.getElementById('alg-btn-prev');
+    const algBtnNext = document.getElementById('alg-btn-next');
+
+    let algCurrentStep = 0;
+    let algSteps = [];
+    let algAnimTimer = null;
+
+    function openAlgModal(alg) {
+      const config = algConfigs[alg];
+      if (!config) return;
+      algTitle.textContent = config.title;
+      algSvg.innerHTML = config.svg;
+      algSteps = config.steps;
+      algCurrentStep = 0;
+      showAlgStep(0);
+      algOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      autoPlayAlg();
+    }
+
+    function closeAlgModal() {
+      algOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+      clearTimeout(algAnimTimer);
+    }
+
+    function showAlgStep(idx) {
+      algCurrentStep = idx;
+      algStepText.textContent = algSteps[idx].text;
+      algStepNum.textContent = (idx + 1) + ' / ' + algSteps.length;
+      algBtnPrev.disabled = idx === 0;
+      algBtnNext.textContent = idx === algSteps.length - 1 ? 'Replay' : 'Next';
+      // Show/hide SVG elements for each step
+      algSvg.querySelectorAll('[data-step]').forEach(el => {
+        const step = parseInt(el.dataset.step);
+        if (step <= idx) {
+          el.classList.add('show');
+        } else {
+          el.classList.remove('show');
+        }
+      });
+    }
+
+    function autoPlayAlg() {
+      clearTimeout(algAnimTimer);
+      if (algCurrentStep < algSteps.length - 1) {
+        algAnimTimer = setTimeout(() => {
+          algCurrentStep++;
+          showAlgStep(algCurrentStep);
+          autoPlayAlg();
+        }, algSteps[algCurrentStep].duration || 1500);
+      }
+    }
+
+    document.querySelectorAll('.alg-clickable').forEach(card => {
+      card.addEventListener('click', () => openAlgModal(card.dataset.alg));
+    });
+
+    document.getElementById('alg-modal-close').addEventListener('click', closeAlgModal);
+    algOverlay.addEventListener('click', (e) => { if (e.target === algOverlay) closeAlgModal(); });
+
+    algBtnNext.addEventListener('click', () => {
+      clearTimeout(algAnimTimer);
+      if (algCurrentStep >= algSteps.length - 1) {
+        showAlgStep(0);
+        autoPlayAlg();
+      } else {
+        algCurrentStep++;
+        showAlgStep(algCurrentStep);
+      }
+    });
+    algBtnPrev.addEventListener('click', () => {
+      clearTimeout(algAnimTimer);
+      if (algCurrentStep > 0) { algCurrentStep--; showAlgStep(algCurrentStep); }
+    });
+
+    // Algorithm configs
+    const algConfigs = {
+      sc: {
+        title: 'Self-Consistency',
+        steps: [
+          { text: 'Prompt comes in', duration: 1200 },
+          { text: 'N candidates are generated in parallel', duration: 1500 },
+          { text: 'Outputs are counted', duration: 1500 },
+          { text: 'Response produced the most is selected', duration: 1500 },
+          { text: 'Final output is returned', duration: 1500 }
+        ],
+        svg: `
+          <svg viewBox="0 0 600 260" class="w-full" style="max-height: 500px;">
+            <!-- Step 0: Prompt -->
+            <g data-step="0" class="anim-node">
+              <rect x="20" y="100" width="90" height="45" rx="8" fill="#EE0000"/>
+              <text x="65" y="128" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="14" font-weight="bold">Prompt</text>
+            </g>
+            <!-- Step 1: Arrow + candidates -->
+            <line data-step="1" class="anim-node" x1="115" y1="122" x2="170" y2="122" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="1" class="anim-node">
+              <rect x="175" y="30" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="215" y="51" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.1s">
+              <rect x="175" y="72" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="215" y="93" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.2s">
+              <rect x="175" y="114" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="135" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">"37"</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.3s">
+              <rect x="175" y="156" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="215" y="177" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.4s">
+              <rect x="175" y="198" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="219" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">"41"</text>
+            </g>
+            <!-- Step 2: Count badges -->
+            <g data-step="2" class="anim-node">
+              <circle cx="270" cy="46" r="10" fill="#3E8635"/>
+              <text x="270" y="50" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="10" font-weight="bold">&#x2713;</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.1s">
+              <circle cx="270" cy="88" r="10" fill="#3E8635"/>
+              <text x="270" y="92" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="10" font-weight="bold">&#x2713;</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.2s">
+              <circle cx="270" cy="130" r="10" fill="#888"/>
+              <text x="270" y="134" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="10">&#x2717;</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.3s">
+              <circle cx="270" cy="172" r="10" fill="#3E8635"/>
+              <text x="270" y="176" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="10" font-weight="bold">&#x2713;</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.4s">
+              <circle cx="270" cy="214" r="10" fill="#888"/>
+              <text x="270" y="218" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="10">&#x2717;</text>
+            </g>
+            <!-- Step 3: Lines from 3 correct answers into majority vote -->
+            <line data-step="3" class="anim-node" x1="280" y1="46" x2="335" y2="105" stroke="#EE0000" stroke-width="2"/>
+            <line data-step="3" class="anim-node" style="transition-delay:0.1s" x1="280" y1="88" x2="335" y2="118" stroke="#EE0000" stroke-width="2"/>
+            <line data-step="3" class="anim-node" style="transition-delay:0.2s" x1="280" y1="172" x2="335" y2="140" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="3" class="anim-node" style="transition-delay:0.3s">
+              <rect x="335" y="85" width="110" height="70" rx="10" fill="#EE0000"/>
+              <text x="390" y="112" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="13" font-weight="bold">MAJORITY</text>
+              <text x="390" y="130" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="13" font-weight="bold">VOTE</text>
+              <text x="390" y="148" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="10">3 of 5 = "42"</text>
+            </g>
+            <!-- Step 4: Final output -->
+            <line data-step="4" class="anim-node" x1="450" y1="122" x2="490" y2="122" stroke="#3E8635" stroke-width="2"/>
+            <g data-step="4" class="anim-node">
+              <rect x="495" y="90" width="90" height="60" rx="10" fill="none" stroke="#3E8635" stroke-width="2"/>
+              <text x="540" y="117" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="16" font-weight="bold">"42"</text>
+              <text x="540" y="138" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="18" font-weight="bold">&#x2713;</text>
+            </g>
+          </svg>
+        `
+      },
+      bon: {
+        title: 'Best-of-N',
+        steps: [
+          { text: 'Prompt comes in', duration: 1200 },
+          { text: 'N candidates are generated in parallel', duration: 1500 },
+          { text: 'An LLM then judges the responses', duration: 1500 },
+          { text: 'Response that received the highest score is selected', duration: 1500 },
+          { text: 'Final output is returned', duration: 1500 }
+        ],
+        svg: `
+          <svg viewBox="0 0 640 260" class="w-full" style="max-height: 500px;">
+            <!-- Step 0: Prompt -->
+            <g data-step="0" class="anim-node">
+              <rect x="20" y="100" width="90" height="45" rx="8" fill="#EE0000"/>
+              <text x="65" y="128" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="14" font-weight="bold">Prompt</text>
+            </g>
+            <!-- Step 1: Arrow + candidates -->
+            <line data-step="1" class="anim-node" x1="115" y1="122" x2="170" y2="122" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="1" class="anim-node">
+              <rect x="175" y="22" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="43" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R1</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.1s">
+              <rect x="175" y="64" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="215" y="85" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">R2</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.2s">
+              <rect x="175" y="106" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="127" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R3</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.3s">
+              <rect x="175" y="148" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="169" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R4</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.4s">
+              <rect x="175" y="190" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="211" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R5</text>
+            </g>
+            <!-- Step 2: Lines into LLM Judge + score badges -->
+            <line data-step="2" class="anim-node" x1="260" y1="38" x2="300" y2="38" stroke="#888" stroke-width="1.5"/>
+            <line data-step="2" class="anim-node" x1="260" y1="80" x2="300" y2="80" stroke="#888" stroke-width="1.5"/>
+            <line data-step="2" class="anim-node" x1="260" y1="122" x2="300" y2="122" stroke="#888" stroke-width="1.5"/>
+            <line data-step="2" class="anim-node" x1="260" y1="164" x2="300" y2="164" stroke="#888" stroke-width="1.5"/>
+            <line data-step="2" class="anim-node" x1="260" y1="206" x2="300" y2="206" stroke="#888" stroke-width="1.5"/>
+            <g data-step="2" class="anim-node" style="transition-delay:0.2s">
+              <rect x="305" y="18" width="24" height="208" rx="6" fill="#EE0000"/>
+              <text x="317" y="130" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="8" font-weight="bold" transform="rotate(-90,317,130)">LLM Judge</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.4s">
+              <text x="348" y="43" fill="#888" font-family="Red Hat Text" font-size="11">6.4</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.5s">
+              <text x="348" y="85" fill="#FFD700" font-family="Red Hat Text" font-size="11" font-weight="bold">&#x2605; 9.2</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.6s">
+              <text x="348" y="127" fill="#888" font-family="Red Hat Text" font-size="11">7.1</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.7s">
+              <text x="348" y="169" fill="#888" font-family="Red Hat Text" font-size="11">5.8</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.8s">
+              <text x="348" y="211" fill="#888" font-family="Red Hat Text" font-size="11">7.5</text>
+            </g>
+            <!-- Step 3: Highlight winner, line to selected box -->
+            <g data-step="3" class="anim-node">
+              <rect x="395" y="55" width="120" height="55" rx="10" fill="#EE0000"/>
+              <text x="455" y="77" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="13" font-weight="bold">HIGHEST</text>
+              <text x="455" y="95" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="13" font-weight="bold">SCORE</text>
+            </g>
+            <line data-step="3" class="anim-node" x1="390" y1="80" x2="395" y2="80" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="3" class="anim-node" style="transition-delay:0.2s">
+              <text x="455" y="130" text-anchor="middle" fill="#FFD700" font-family="Red Hat Display" font-size="14" font-weight="bold">R2 = 9.2</text>
+            </g>
+            <!-- Step 4: Final output -->
+            <line data-step="4" class="anim-node" x1="520" y1="82" x2="540" y2="82" stroke="#3E8635" stroke-width="2"/>
+            <g data-step="4" class="anim-node">
+              <rect x="545" y="55" width="80" height="55" rx="10" fill="none" stroke="#3E8635" stroke-width="2"/>
+              <text x="585" y="78" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="14" font-weight="bold">R2</text>
+              <text x="585" y="98" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="18" font-weight="bold">&#x2713;</text>
+            </g>
+          </svg>
+        `
+      },
+      beam: {
+        title: 'Beam Search',
+        steps: [
+          { text: 'Prompt comes in', duration: 1200 },
+          { text: 'N candidates are generated', duration: 1200 },
+          { text: 'Responses are scored at this step', duration: 1200 },
+          { text: 'Lowest scores are dropped', duration: 1200 },
+          { text: 'Beams continue to the next step', duration: 1200 },
+          { text: 'Responses are scored at this step', duration: 1200 },
+          { text: 'Lowest scores are dropped', duration: 1200 },
+          { text: 'Beams continue to the next step', duration: 1200 },
+          { text: 'Responses are scored at this step', duration: 1200 },
+          { text: 'Highest scored response is selected', duration: 1200 },
+          { text: 'Response is returned', duration: 1500 }
+        ],
+        svg: `
+          <svg viewBox="0 0 750 220" class="w-full" style="max-height: 500px;">
+            <!-- Column labels -->
+            <text data-step="1" class="anim-node" x="145" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 1</text>
+            <text data-step="4" class="anim-node" x="310" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 2</text>
+            <text data-step="7" class="anim-node" x="475" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 3</text>
+
+            <!-- Step 0: Prompt -->
+            <g data-step="0" class="anim-node">
+              <rect x="10" y="82" width="75" height="40" rx="8" fill="#EE0000"/>
+              <text x="47" y="107" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="12" font-weight="bold">Prompt</text>
+            </g>
+
+            <!-- Step 1: 4 initial candidates -->
+            <line data-step="1" class="anim-node" x1="90" y1="102" x2="110" y2="102" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="1" class="anim-node">
+              <rect x="115" y="20" width="60" height="28" rx="5" fill="#555"/>
+              <text x="145" y="38" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">A</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.1s">
+              <rect x="115" y="58" width="60" height="28" rx="5" fill="#555"/>
+              <text x="145" y="76" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">B</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.2s">
+              <rect x="115" y="96" width="60" height="28" rx="5" fill="#555"/>
+              <text x="145" y="114" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">C</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.3s">
+              <rect x="115" y="134" width="60" height="28" rx="5" fill="#555"/>
+              <text x="145" y="152" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">D</text>
+            </g>
+
+            <!-- Step 2: Scores appear -->
+            <g data-step="2" class="anim-node">
+              <text x="190" y="39" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.82</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.1s">
+              <text x="190" y="77" fill="#888" font-family="Red Hat Text" font-size="9">.31</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.2s">
+              <text x="190" y="115" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.74</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.3s">
+              <text x="190" y="153" fill="#888" font-family="Red Hat Text" font-size="9">.45</text>
+            </g>
+
+            <!-- Step 3: Drop B and D -->
+            <g data-step="3" class="anim-node">
+              <text x="186" y="77" fill="#EE0000" font-family="Red Hat Text" font-size="14">&#x2717;</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.1s">
+              <text x="186" y="153" fill="#EE0000" font-family="Red Hat Text" font-size="14">&#x2717;</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.15s">
+              <line x1="115" y1="72" x2="210" y2="72" stroke="#EE0000" stroke-width="1" opacity="0.5"/>
+              <line x1="115" y1="148" x2="210" y2="148" stroke="#EE0000" stroke-width="1" opacity="0.5"/>
+            </g>
+
+            <!-- Step 4: Beams A and C expand to step 2 -->
+            <line data-step="4" class="anim-node" x1="215" y1="34" x2="280" y2="50" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="4" class="anim-node" x1="215" y1="34" x2="280" y2="88" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="4" class="anim-node" x1="215" y1="110" x2="280" y2="126" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="4" class="anim-node" x1="215" y1="110" x2="280" y2="164" stroke="#EE0000" stroke-width="1.5"/>
+            <g data-step="4" class="anim-node">
+              <rect x="280" y="36" width="60" height="28" rx="5" fill="#555"/>
+              <text x="310" y="54" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">A1</text>
+            </g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.1s">
+              <rect x="280" y="74" width="60" height="28" rx="5" fill="#555"/>
+              <text x="310" y="92" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">A2</text>
+            </g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.2s">
+              <rect x="280" y="112" width="60" height="28" rx="5" fill="#555"/>
+              <text x="310" y="130" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">C1</text>
+            </g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.3s">
+              <rect x="280" y="150" width="60" height="28" rx="5" fill="#555"/>
+              <text x="310" y="168" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">C2</text>
+            </g>
+
+            <!-- Step 5: Scores for step 2 -->
+            <g data-step="5" class="anim-node">
+              <text x="355" y="55" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.91</text>
+            </g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.1s">
+              <text x="355" y="93" fill="#888" font-family="Red Hat Text" font-size="9">.58</text>
+            </g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.2s">
+              <text x="355" y="131" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.86</text>
+            </g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.3s">
+              <text x="355" y="169" fill="#888" font-family="Red Hat Text" font-size="9">.52</text>
+            </g>
+
+            <!-- Step 6: Drop A2 and C2 -->
+            <g data-step="6" class="anim-node">
+              <text x="351" y="93" fill="#EE0000" font-family="Red Hat Text" font-size="14">&#x2717;</text>
+            </g>
+            <g data-step="6" class="anim-node" style="transition-delay:0.1s">
+              <text x="351" y="169" fill="#EE0000" font-family="Red Hat Text" font-size="14">&#x2717;</text>
+            </g>
+            <g data-step="6" class="anim-node" style="transition-delay:0.15s">
+              <line x1="280" y1="88" x2="375" y2="88" stroke="#EE0000" stroke-width="1" opacity="0.5"/>
+              <line x1="280" y1="164" x2="375" y2="164" stroke="#EE0000" stroke-width="1" opacity="0.5"/>
+            </g>
+
+            <!-- Step 7: Beams A1 and C1 expand to step 3 -->
+            <line data-step="7" class="anim-node" x1="380" y1="50" x2="445" y2="60" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="7" class="anim-node" x1="380" y1="50" x2="445" y2="98" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="7" class="anim-node" x1="380" y1="126" x2="445" y2="136" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="7" class="anim-node" x1="380" y1="126" x2="445" y2="174" stroke="#EE0000" stroke-width="1.5"/>
+            <g data-step="7" class="anim-node">
+              <rect x="445" y="46" width="60" height="28" rx="5" fill="#555"/>
+              <text x="475" y="64" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">A1a</text>
+            </g>
+            <g data-step="7" class="anim-node" style="transition-delay:0.1s">
+              <rect x="445" y="84" width="60" height="28" rx="5" fill="#555"/>
+              <text x="475" y="102" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">A1b</text>
+            </g>
+            <g data-step="7" class="anim-node" style="transition-delay:0.2s">
+              <rect x="445" y="122" width="60" height="28" rx="5" fill="#555"/>
+              <text x="475" y="140" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">C1a</text>
+            </g>
+            <g data-step="7" class="anim-node" style="transition-delay:0.3s">
+              <rect x="445" y="160" width="60" height="28" rx="5" fill="#555"/>
+              <text x="475" y="178" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">C1b</text>
+            </g>
+
+            <!-- Step 8: Final scores -->
+            <g data-step="8" class="anim-node">
+              <text x="520" y="65" fill="#FFD700" font-family="Red Hat Text" font-size="9" font-weight="bold">&#x2605; .95</text>
+            </g>
+            <g data-step="8" class="anim-node" style="transition-delay:0.1s">
+              <text x="520" y="103" fill="#888" font-family="Red Hat Text" font-size="9">.67</text>
+            </g>
+            <g data-step="8" class="anim-node" style="transition-delay:0.2s">
+              <text x="520" y="141" fill="#888" font-family="Red Hat Text" font-size="9">.88</text>
+            </g>
+            <g data-step="8" class="anim-node" style="transition-delay:0.3s">
+              <text x="520" y="179" fill="#888" font-family="Red Hat Text" font-size="9">.61</text>
+            </g>
+
+            <!-- Step 9: Highlight A1a as winner -->
+            <g data-step="9" class="anim-node">
+              <rect x="445" y="46" width="60" height="28" rx="5" fill="#EE0000"/>
+              <text x="475" y="64" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">A1a</text>
+            </g>
+            <line data-step="9" class="anim-node" x1="560" y1="60" x2="600" y2="60" stroke="#3E8635" stroke-width="2"/>
+
+            <!-- Step 10: Final output -->
+            <g data-step="10" class="anim-node">
+              <rect x="605" y="35" width="80" height="50" rx="10" fill="none" stroke="#3E8635" stroke-width="2"/>
+              <text x="645" y="56" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="12" font-weight="bold">A1a</text>
+              <text x="645" y="75" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="16" font-weight="bold">&#x2713;</text>
+            </g>
+          </svg>
+        `
+      },
+      pf: {
+        title: 'Particle Filtering',
+        steps: [
+          { text: 'Prompt comes in', duration: 1200 },
+          { text: 'N candidates are generated', duration: 1200 },
+          { text: 'Responses are scored at this step', duration: 1200 },
+          { text: 'Unlike Beam Search, no paths are dropped', duration: 1500 },
+          { text: 'Particles continue to the next step', duration: 1200 },
+          { text: 'Responses are scored at this step', duration: 1200 },
+          { text: 'Again, no paths are dropped', duration: 1500 },
+          { text: 'Particles continue to the next step', duration: 1200 },
+          { text: 'Responses are scored at this step', duration: 1200 },
+          { text: 'Highest scored response is selected', duration: 1200 },
+          { text: 'Response is returned', duration: 1500 }
+        ],
+        svg: `
+          <svg viewBox="0 0 750 220" class="w-full" style="max-height: 500px;">
+            <!-- Column labels -->
+            <text data-step="1" class="anim-node" x="145" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 1</text>
+            <text data-step="4" class="anim-node" x="330" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 2</text>
+            <text data-step="7" class="anim-node" x="515" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 3</text>
+
+            <!-- Step 0: Prompt -->
+            <g data-step="0" class="anim-node">
+              <rect x="10" y="82" width="75" height="40" rx="8" fill="#EE0000"/>
+              <text x="47" y="107" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="12" font-weight="bold">Prompt</text>
+            </g>
+
+            <!-- Step 1: 4 particles -->
+            <line data-step="1" class="anim-node" x1="90" y1="102" x2="110" y2="102" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="1" class="anim-node">
+              <rect x="115" y="22" width="60" height="28" rx="5" fill="#555"/>
+              <text x="145" y="40" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P1</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.1s">
+              <rect x="115" y="62" width="60" height="28" rx="5" fill="#555"/>
+              <text x="145" y="80" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P2</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.2s">
+              <rect x="115" y="102" width="60" height="28" rx="5" fill="#555"/>
+              <text x="145" y="120" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P3</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.3s">
+              <rect x="115" y="142" width="60" height="28" rx="5" fill="#555"/>
+              <text x="145" y="160" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P4</text>
+            </g>
+
+            <!-- Step 2: Scores appear -->
+            <g data-step="2" class="anim-node">
+              <text x="190" y="41" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.82</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.1s">
+              <text x="190" y="81" fill="#888" font-family="Red Hat Text" font-size="9">.31</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.2s">
+              <text x="190" y="121" fill="#888" font-family="Red Hat Text" font-size="9">.45</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.3s">
+              <text x="190" y="161" fill="#888" font-family="Red Hat Text" font-size="9">.74</text>
+            </g>
+
+            <!-- Step 3: No paths dropped, show keep marks -->
+            <g data-step="3" class="anim-node">
+              <text x="215" y="42" fill="#3E8635" font-family="Red Hat Text" font-size="11" font-weight="bold">&#x2713;</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.1s">
+              <text x="215" y="82" fill="#3E8635" font-family="Red Hat Text" font-size="11" font-weight="bold">&#x2713;</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.2s">
+              <text x="215" y="122" fill="#3E8635" font-family="Red Hat Text" font-size="11" font-weight="bold">&#x2713;</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.3s">
+              <text x="215" y="162" fill="#3E8635" font-family="Red Hat Text" font-size="11" font-weight="bold">&#x2713;</text>
+            </g>
+
+            <!-- Step 4: All continue to step 2 -->
+            <line data-step="4" class="anim-node" x1="230" y1="36" x2="300" y2="36" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="4" class="anim-node" x1="230" y1="76" x2="300" y2="76" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="4" class="anim-node" x1="230" y1="116" x2="300" y2="116" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="4" class="anim-node" x1="230" y1="156" x2="300" y2="156" stroke="#EE0000" stroke-width="1.5"/>
+            <g data-step="4" class="anim-node">
+              <rect x="300" y="22" width="60" height="28" rx="5" fill="#555"/>
+              <text x="330" y="40" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P1</text>
+            </g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.1s">
+              <rect x="300" y="62" width="60" height="28" rx="5" fill="#555"/>
+              <text x="330" y="80" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P2</text>
+            </g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.2s">
+              <rect x="300" y="102" width="60" height="28" rx="5" fill="#555"/>
+              <text x="330" y="120" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P3</text>
+            </g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.3s">
+              <rect x="300" y="142" width="60" height="28" rx="5" fill="#555"/>
+              <text x="330" y="160" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P4</text>
+            </g>
+
+            <!-- Step 5: Scores for step 2 (P3 rising) -->
+            <g data-step="5" class="anim-node">
+              <text x="375" y="41" fill="#888" font-family="Red Hat Text" font-size="9">.71</text>
+            </g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.1s">
+              <text x="375" y="81" fill="#888" font-family="Red Hat Text" font-size="9">.42</text>
+            </g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.2s">
+              <text x="375" y="121" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.68</text>
+            </g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.3s">
+              <text x="375" y="161" fill="#888" font-family="Red Hat Text" font-size="9">.55</text>
+            </g>
+
+            <!-- Step 6: No paths dropped again -->
+            <g data-step="6" class="anim-node">
+              <text x="400" y="42" fill="#3E8635" font-family="Red Hat Text" font-size="11" font-weight="bold">&#x2713;</text>
+            </g>
+            <g data-step="6" class="anim-node" style="transition-delay:0.1s">
+              <text x="400" y="82" fill="#3E8635" font-family="Red Hat Text" font-size="11" font-weight="bold">&#x2713;</text>
+            </g>
+            <g data-step="6" class="anim-node" style="transition-delay:0.2s">
+              <text x="400" y="122" fill="#3E8635" font-family="Red Hat Text" font-size="11" font-weight="bold">&#x2713;</text>
+            </g>
+            <g data-step="6" class="anim-node" style="transition-delay:0.3s">
+              <text x="400" y="162" fill="#3E8635" font-family="Red Hat Text" font-size="11" font-weight="bold">&#x2713;</text>
+            </g>
+
+            <!-- Step 7: All continue to step 3 -->
+            <line data-step="7" class="anim-node" x1="415" y1="36" x2="485" y2="36" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="7" class="anim-node" x1="415" y1="76" x2="485" y2="76" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="7" class="anim-node" x1="415" y1="116" x2="485" y2="116" stroke="#EE0000" stroke-width="1.5"/>
+            <line data-step="7" class="anim-node" x1="415" y1="156" x2="485" y2="156" stroke="#EE0000" stroke-width="1.5"/>
+            <g data-step="7" class="anim-node">
+              <rect x="485" y="22" width="60" height="28" rx="5" fill="#555"/>
+              <text x="515" y="40" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P1</text>
+            </g>
+            <g data-step="7" class="anim-node" style="transition-delay:0.1s">
+              <rect x="485" y="62" width="60" height="28" rx="5" fill="#555"/>
+              <text x="515" y="80" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P2</text>
+            </g>
+            <g data-step="7" class="anim-node" style="transition-delay:0.2s">
+              <rect x="485" y="102" width="60" height="28" rx="5" fill="#555"/>
+              <text x="515" y="120" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P3</text>
+            </g>
+            <g data-step="7" class="anim-node" style="transition-delay:0.3s">
+              <rect x="485" y="142" width="60" height="28" rx="5" fill="#555"/>
+              <text x="515" y="160" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">P4</text>
+            </g>
+
+            <!-- Step 8: Final scores (P3 wins, was lowest at step 1) -->
+            <g data-step="8" class="anim-node">
+              <text x="560" y="41" fill="#888" font-family="Red Hat Text" font-size="9">.78</text>
+            </g>
+            <g data-step="8" class="anim-node" style="transition-delay:0.1s">
+              <text x="560" y="81" fill="#888" font-family="Red Hat Text" font-size="9">.55</text>
+            </g>
+            <g data-step="8" class="anim-node" style="transition-delay:0.2s">
+              <text x="560" y="121" fill="#FFD700" font-family="Red Hat Text" font-size="9" font-weight="bold">&#x2605; .94</text>
+            </g>
+            <g data-step="8" class="anim-node" style="transition-delay:0.3s">
+              <text x="560" y="161" fill="#888" font-family="Red Hat Text" font-size="9">.61</text>
+            </g>
+
+            <!-- Step 9: Highlight P3 as winner -->
+            <g data-step="9" class="anim-node">
+              <rect x="485" y="102" width="60" height="28" rx="5" fill="#EE0000"/>
+              <text x="515" y="120" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="10" font-weight="bold">P3</text>
+            </g>
+            <line data-step="9" class="anim-node" x1="600" y1="116" x2="630" y2="116" stroke="#3E8635" stroke-width="2"/>
+
+            <!-- Step 10: Final output -->
+            <g data-step="10" class="anim-node">
+              <rect x="635" y="91" width="80" height="50" rx="10" fill="none" stroke="#3E8635" stroke-width="2"/>
+              <text x="675" y="112" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="12" font-weight="bold">P3</text>
+              <text x="675" y="131" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="16" font-weight="bold">&#x2713;</text>
+            </g>
+
+            <!-- Insight text at bottom -->
+            <g data-step="9" class="anim-node" style="transition-delay:0.3s">
+              <text x="375" y="200" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9" font-style="italic">P3 scored lowest at Step 1 but wins at Step 3.</text>
+              <text x="375" y="214" text-anchor="middle" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-style="italic" font-weight="bold">Beam Search would have pruned it.</text>
+            </g>
+          </svg>
+        `
+      }
+    };
   </script>
 </body>
 </html>
