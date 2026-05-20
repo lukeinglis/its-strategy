@@ -1433,25 +1433,46 @@ X-ITS-Algorithm: self_consistency</code>
               <rect x="20" y="100" width="90" height="45" rx="8" fill="#EE0000"/>
               <text x="65" y="128" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="14" font-weight="bold">Prompt</text>
             </g>
-            <!-- Step 1: Arrow + candidates -->
+            <!-- Step 1: Arrow + candidates (all neutral grey) -->
             <line data-step="1" class="anim-node" x1="115" y1="122" x2="170" y2="122" stroke="#EE0000" stroke-width="2"/>
             <g data-step="1" class="anim-node">
-              <rect x="175" y="30" width="80" height="32" rx="6" fill="#EE0000"/>
+              <rect x="175" y="30" width="80" height="32" rx="6" fill="#888"/>
               <text x="215" y="51" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.1s">
-              <rect x="175" y="72" width="80" height="32" rx="6" fill="#EE0000"/>
+              <rect x="175" y="72" width="80" height="32" rx="6" fill="#888"/>
               <text x="215" y="93" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.2s">
-              <rect x="175" y="114" width="80" height="32" rx="6" fill="#555"/>
-              <text x="215" y="135" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">"37"</text>
+              <rect x="175" y="114" width="80" height="32" rx="6" fill="#888"/>
+              <text x="215" y="135" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"37"</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.3s">
-              <rect x="175" y="156" width="80" height="32" rx="6" fill="#EE0000"/>
+              <rect x="175" y="156" width="80" height="32" rx="6" fill="#888"/>
               <text x="215" y="177" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.4s">
+              <rect x="175" y="198" width="80" height="32" rx="6" fill="#888"/>
+              <text x="215" y="219" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"41"</text>
+            </g>
+            <!-- Step 2: Winners turn red, losers turn dark grey -->
+            <g data-step="2" class="anim-node">
+              <rect x="175" y="30" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="215" y="51" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.1s">
+              <rect x="175" y="72" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="215" y="93" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.2s">
+              <rect x="175" y="114" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="135" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">"37"</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.3s">
+              <rect x="175" y="156" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="215" y="177" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.4s">
               <rect x="175" y="198" width="80" height="32" rx="6" fill="#555"/>
               <text x="215" y="219" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">"41"</text>
             </g>
@@ -1529,24 +1550,24 @@ X-ITS-Algorithm: self_consistency</code>
             <!-- Step 1: Arrow + candidates -->
             <line data-step="1" class="anim-node" x1="115" y1="122" x2="170" y2="122" stroke="#EE0000" stroke-width="2"/>
             <g data-step="1" class="anim-node">
-              <rect x="175" y="22" width="80" height="32" rx="6" fill="#555"/>
-              <text x="215" y="43" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R1</text>
+              <rect x="175" y="22" width="80" height="32" rx="6" fill="#888"/>
+              <text x="215" y="43" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">R1</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.1s">
-              <rect x="175" y="64" width="80" height="32" rx="6" fill="#EE0000"/>
+              <rect x="175" y="64" width="80" height="32" rx="6" fill="#888"/>
               <text x="215" y="85" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">R2</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.2s">
-              <rect x="175" y="106" width="80" height="32" rx="6" fill="#555"/>
-              <text x="215" y="127" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R3</text>
+              <rect x="175" y="106" width="80" height="32" rx="6" fill="#888"/>
+              <text x="215" y="127" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">R3</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.3s">
-              <rect x="175" y="148" width="80" height="32" rx="6" fill="#555"/>
-              <text x="215" y="169" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R4</text>
+              <rect x="175" y="148" width="80" height="32" rx="6" fill="#888"/>
+              <text x="215" y="169" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">R4</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.4s">
-              <rect x="175" y="190" width="80" height="32" rx="6" fill="#555"/>
-              <text x="215" y="211" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R5</text>
+              <rect x="175" y="190" width="80" height="32" rx="6" fill="#888"/>
+              <text x="215" y="211" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">R5</text>
             </g>
             <!-- Step 2: Lines into LLM Judge + score badges -->
             <line data-step="2" class="anim-node" x1="260" y1="38" x2="300" y2="38" stroke="#888" stroke-width="1.5"/>
@@ -1573,8 +1594,29 @@ X-ITS-Algorithm: self_consistency</code>
             <g data-step="2" class="anim-node" style="transition-delay:0.8s">
               <text x="348" y="211" fill="#888" font-family="Red Hat Text" font-size="11">7.5</text>
             </g>
-            <!-- Step 3: Highlight winner, line to selected box -->
+            <!-- Step 3: R2 turns red, others go dark -->
             <g data-step="3" class="anim-node">
+              <rect x="175" y="22" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="43" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R1</text>
+            </g>
+            <g data-step="3" class="anim-node">
+              <rect x="175" y="64" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="215" y="85" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">R2</text>
+            </g>
+            <g data-step="3" class="anim-node">
+              <rect x="175" y="106" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="127" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R3</text>
+            </g>
+            <g data-step="3" class="anim-node">
+              <rect x="175" y="148" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="169" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R4</text>
+            </g>
+            <g data-step="3" class="anim-node">
+              <rect x="175" y="190" width="80" height="32" rx="6" fill="#555"/>
+              <text x="215" y="211" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">R5</text>
+            </g>
+            <!-- Highlight winner box -->
+            <g data-step="3" class="anim-node" style="transition-delay:0.3s">
               <rect x="395" y="55" width="120" height="55" rx="10" fill="#EE0000"/>
               <text x="455" y="77" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="13" font-weight="bold">HIGHEST</text>
               <text x="455" y="95" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="13" font-weight="bold">SCORE</text>
@@ -1623,159 +1665,142 @@ X-ITS-Algorithm: self_consistency</code>
           { text: 'Response is returned', duration: 1500 }
         ],
         svg: `
-          <svg viewBox="0 0 750 220" class="w-full" style="max-height: none;">
+          <svg viewBox="0 0 780 280" class="w-full" style="max-height: none;">
             <!-- Column labels -->
-            <text data-step="1" class="anim-node" x="145" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 1</text>
-            <text data-step="4" class="anim-node" x="310" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 2</text>
-            <text data-step="7" class="anim-node" x="475" y="12" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">Step 3</text>
+            <text data-step="1" class="anim-node" x="155" y="18" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="10">Step 1 Candidates</text>
+            <text data-step="4" class="anim-node" x="390" y="18" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="10">Step 2 Candidates</text>
+            <text data-step="7" class="anim-node" x="590" y="18" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="10">Step 3 Candidates</text>
 
             <!-- Step 0: Prompt -->
             <g data-step="0" class="anim-node">
-              <rect x="10" y="82" width="75" height="40" rx="8" fill="#EE0000"/>
-              <text x="47" y="107" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="12" font-weight="bold">Prompt</text>
+              <rect x="5" y="110" width="70" height="40" rx="8" fill="#EE0000"/>
+              <text x="40" y="135" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="12" font-weight="bold">Prompt</text>
             </g>
 
-            <!-- Step 1: 4 initial candidates -->
-            <line data-step="1" class="anim-node" x1="90" y1="102" x2="110" y2="102" stroke="#EE0000" stroke-width="2"/>
+            <!-- Step 1: 5 initial candidates fan out -->
+            <line data-step="1" class="anim-node" x1="80" y1="130" x2="120" y2="45" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="1" class="anim-node" x1="80" y1="130" x2="120" y2="85" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="1" class="anim-node" x1="80" y1="130" x2="120" y2="125" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="1" class="anim-node" x1="80" y1="130" x2="120" y2="165" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="1" class="anim-node" x1="80" y1="130" x2="120" y2="205" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
             <g data-step="1" class="anim-node">
-              <rect x="115" y="20" width="60" height="28" rx="5" fill="#555"/>
-              <text x="145" y="38" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">A</text>
+              <circle cx="155" cy="45" r="16" fill="#888"/><text x="155" y="50" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">A</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.1s">
-              <rect x="115" y="58" width="60" height="28" rx="5" fill="#555"/>
-              <text x="145" y="76" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">B</text>
+              <circle cx="155" cy="85" r="16" fill="#888"/><text x="155" y="90" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">B</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.2s">
-              <rect x="115" y="96" width="60" height="28" rx="5" fill="#555"/>
-              <text x="145" y="114" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">C</text>
+              <circle cx="155" cy="125" r="16" fill="#888"/><text x="155" y="130" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">C</text>
             </g>
             <g data-step="1" class="anim-node" style="transition-delay:0.3s">
-              <rect x="115" y="134" width="60" height="28" rx="5" fill="#555"/>
-              <text x="145" y="152" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="10" font-weight="bold">D</text>
+              <circle cx="155" cy="165" r="16" fill="#888"/><text x="155" y="170" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">D</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.4s">
+              <circle cx="155" cy="205" r="16" fill="#888"/><text x="155" y="210" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">E</text>
             </g>
 
-            <!-- Step 2: Scores appear -->
-            <g data-step="2" class="anim-node">
-              <text x="190" y="39" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.82</text>
-            </g>
-            <g data-step="2" class="anim-node" style="transition-delay:0.1s">
-              <text x="190" y="77" fill="#888" font-family="Red Hat Text" font-size="9">.31</text>
-            </g>
-            <g data-step="2" class="anim-node" style="transition-delay:0.2s">
-              <text x="190" y="115" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.74</text>
-            </g>
-            <g data-step="2" class="anim-node" style="transition-delay:0.3s">
-              <text x="190" y="153" fill="#888" font-family="Red Hat Text" font-size="9">.45</text>
-            </g>
+            <!-- Step 2: Scores -->
+            <g data-step="2" class="anim-node"><text x="180" y="50" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.82</text></g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.1s"><text x="180" y="90" fill="#888" font-family="Red Hat Text" font-size="9">.31</text></g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.2s"><text x="180" y="130" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.74</text></g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.3s"><text x="180" y="170" fill="#888" font-family="Red Hat Text" font-size="9">.45</text></g>
+            <g data-step="2" class="anim-node" style="transition-delay:0.4s"><text x="180" y="210" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.68</text></g>
 
-            <!-- Step 3: Drop B and D -->
+            <!-- Step 3: Prune B, D. Highlight A, C, E -->
             <g data-step="3" class="anim-node">
-              <text x="186" y="77" fill="#EE0000" font-family="Red Hat Text" font-size="14">&#x2717;</text>
+              <circle cx="155" cy="45" r="16" fill="#EE0000"/><text x="155" y="50" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">A</text>
             </g>
-            <g data-step="3" class="anim-node" style="transition-delay:0.1s">
-              <text x="186" y="153" fill="#EE0000" font-family="Red Hat Text" font-size="14">&#x2717;</text>
+            <g data-step="3" class="anim-node">
+              <circle cx="155" cy="85" r="16" fill="#555"/><text x="155" y="90" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="11">B</text>
+              <line x1="140" y1="85" x2="170" y2="85" stroke="#EE0000" stroke-width="1.5"/>
             </g>
-            <g data-step="3" class="anim-node" style="transition-delay:0.15s">
-              <line x1="115" y1="72" x2="210" y2="72" stroke="#EE0000" stroke-width="1" opacity="0.5"/>
-              <line x1="115" y1="148" x2="210" y2="148" stroke="#EE0000" stroke-width="1" opacity="0.5"/>
+            <g data-step="3" class="anim-node">
+              <circle cx="155" cy="125" r="16" fill="#EE0000"/><text x="155" y="130" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">C</text>
+            </g>
+            <g data-step="3" class="anim-node">
+              <circle cx="155" cy="165" r="16" fill="#555"/><text x="155" y="170" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="11">D</text>
+              <line x1="140" y1="165" x2="170" y2="165" stroke="#EE0000" stroke-width="1.5"/>
+            </g>
+            <g data-step="3" class="anim-node">
+              <circle cx="155" cy="205" r="16" fill="#EE0000"/><text x="155" y="210" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">E</text>
             </g>
 
-            <!-- Step 4: Beams A and C expand to step 2 -->
-            <line data-step="4" class="anim-node" x1="215" y1="34" x2="280" y2="50" stroke="#EE0000" stroke-width="1.5"/>
-            <line data-step="4" class="anim-node" x1="215" y1="34" x2="280" y2="88" stroke="#EE0000" stroke-width="1.5"/>
-            <line data-step="4" class="anim-node" x1="215" y1="110" x2="280" y2="126" stroke="#EE0000" stroke-width="1.5"/>
-            <line data-step="4" class="anim-node" x1="215" y1="110" x2="280" y2="164" stroke="#EE0000" stroke-width="1.5"/>
-            <g data-step="4" class="anim-node">
-              <rect x="280" y="36" width="60" height="28" rx="5" fill="#555"/>
-              <text x="310" y="54" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">A1</text>
-            </g>
-            <g data-step="4" class="anim-node" style="transition-delay:0.1s">
-              <rect x="280" y="74" width="60" height="28" rx="5" fill="#555"/>
-              <text x="310" y="92" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">A2</text>
-            </g>
-            <g data-step="4" class="anim-node" style="transition-delay:0.2s">
-              <rect x="280" y="112" width="60" height="28" rx="5" fill="#555"/>
-              <text x="310" y="130" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">C1</text>
-            </g>
-            <g data-step="4" class="anim-node" style="transition-delay:0.3s">
-              <rect x="280" y="150" width="60" height="28" rx="5" fill="#555"/>
-              <text x="310" y="168" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">C2</text>
-            </g>
+            <!-- Step 4: Fan out from A, C, E into step 2 candidates -->
+            <!-- A fans out -->
+            <line data-step="4" class="anim-node" x1="172" y1="45" x2="350" y2="45" stroke="#EE0000" stroke-width="1.5"/>
+            <g data-step="4" class="anim-node"><text x="260" y="40" fill="#888" font-family="Red Hat Text" font-size="8" font-style="italic">A</text></g>
+            <!-- C fans out -->
+            <line data-step="4" class="anim-node" x1="172" y1="125" x2="350" y2="125" stroke="#EE0000" stroke-width="1.5"/>
+            <g data-step="4" class="anim-node"><text x="260" y="120" fill="#888" font-family="Red Hat Text" font-size="8" font-style="italic">C</text></g>
+            <!-- E fans out -->
+            <line data-step="4" class="anim-node" x1="172" y1="205" x2="350" y2="205" stroke="#EE0000" stroke-width="1.5"/>
+            <g data-step="4" class="anim-node"><text x="260" y="200" fill="#888" font-family="Red Hat Text" font-size="8" font-style="italic">E</text></g>
+            <!-- Fan-out arrows from each to candidates -->
+            <line data-step="4" class="anim-node" x1="350" y1="45" x2="370" y2="35" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="4" class="anim-node" x1="350" y1="45" x2="370" y2="55" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="4" class="anim-node" x1="350" y1="125" x2="370" y2="105" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="4" class="anim-node" x1="350" y1="125" x2="370" y2="135" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="4" class="anim-node" x1="350" y1="205" x2="370" y2="195" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="4" class="anim-node" x1="350" y1="205" x2="370" y2="225" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <!-- Step 2 candidate circles -->
+            <g data-step="4" class="anim-node"><circle cx="390" cy="35" r="16" fill="#888"/><text x="390" y="40" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">AB</text></g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.1s"><circle cx="390" cy="70" r="16" fill="#888"/><text x="390" y="75" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">AC</text></g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.15s"><circle cx="390" cy="105" r="16" fill="#888"/><text x="390" y="110" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">CA</text></g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.2s"><circle cx="390" cy="140" r="16" fill="#888"/><text x="390" y="145" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">CD</text></g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.25s"><circle cx="390" cy="195" r="16" fill="#888"/><text x="390" y="200" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">EA</text></g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.3s"><circle cx="390" cy="230" r="16" fill="#888"/><text x="390" y="235" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">EC</text></g>
 
             <!-- Step 5: Scores for step 2 -->
-            <g data-step="5" class="anim-node">
-              <text x="355" y="55" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.91</text>
-            </g>
-            <g data-step="5" class="anim-node" style="transition-delay:0.1s">
-              <text x="355" y="93" fill="#888" font-family="Red Hat Text" font-size="9">.58</text>
-            </g>
-            <g data-step="5" class="anim-node" style="transition-delay:0.2s">
-              <text x="355" y="131" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.86</text>
-            </g>
-            <g data-step="5" class="anim-node" style="transition-delay:0.3s">
-              <text x="355" y="169" fill="#888" font-family="Red Hat Text" font-size="9">.52</text>
-            </g>
+            <g data-step="5" class="anim-node"><text x="415" y="40" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.91</text></g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.1s"><text x="415" y="75" fill="#888" font-family="Red Hat Text" font-size="9">.58</text></g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.15s"><text x="415" y="110" fill="#888" font-family="Red Hat Text" font-size="9">.63</text></g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.2s"><text x="415" y="145" fill="#888" font-family="Red Hat Text" font-size="9">.52</text></g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.25s"><text x="415" y="200" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-weight="bold">.86</text></g>
+            <g data-step="5" class="anim-node" style="transition-delay:0.3s"><text x="415" y="235" fill="#888" font-family="Red Hat Text" font-size="9">.49</text></g>
 
-            <!-- Step 6: Drop A2 and C2 -->
-            <g data-step="6" class="anim-node">
-              <text x="351" y="93" fill="#EE0000" font-family="Red Hat Text" font-size="14">&#x2717;</text>
-            </g>
-            <g data-step="6" class="anim-node" style="transition-delay:0.1s">
-              <text x="351" y="169" fill="#EE0000" font-family="Red Hat Text" font-size="14">&#x2717;</text>
-            </g>
-            <g data-step="6" class="anim-node" style="transition-delay:0.15s">
-              <line x1="280" y1="88" x2="375" y2="88" stroke="#EE0000" stroke-width="1" opacity="0.5"/>
-              <line x1="280" y1="164" x2="375" y2="164" stroke="#EE0000" stroke-width="1" opacity="0.5"/>
-            </g>
+            <!-- Step 6: Prune losers, keep AB and EA -->
+            <g data-step="6" class="anim-node"><circle cx="390" cy="35" r="16" fill="#EE0000"/><text x="390" y="40" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">AB</text></g>
+            <g data-step="6" class="anim-node"><circle cx="390" cy="70" r="16" fill="#555"/><text x="390" y="75" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">AC</text><line x1="375" y1="70" x2="405" y2="70" stroke="#EE0000" stroke-width="1.5"/></g>
+            <g data-step="6" class="anim-node"><circle cx="390" cy="105" r="16" fill="#555"/><text x="390" y="110" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">CA</text><line x1="375" y1="105" x2="405" y2="105" stroke="#EE0000" stroke-width="1.5"/></g>
+            <g data-step="6" class="anim-node"><circle cx="390" cy="140" r="16" fill="#555"/><text x="390" y="145" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">CD</text><line x1="375" y1="140" x2="405" y2="140" stroke="#EE0000" stroke-width="1.5"/></g>
+            <g data-step="6" class="anim-node"><circle cx="390" cy="195" r="16" fill="#EE0000"/><text x="390" y="200" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">EA</text></g>
+            <g data-step="6" class="anim-node"><circle cx="390" cy="230" r="16" fill="#555"/><text x="390" y="235" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">EC</text><line x1="375" y1="230" x2="405" y2="230" stroke="#EE0000" stroke-width="1.5"/></g>
 
-            <!-- Step 7: Beams A1 and C1 expand to step 3 -->
-            <line data-step="7" class="anim-node" x1="380" y1="50" x2="445" y2="60" stroke="#EE0000" stroke-width="1.5"/>
-            <line data-step="7" class="anim-node" x1="380" y1="50" x2="445" y2="98" stroke="#EE0000" stroke-width="1.5"/>
-            <line data-step="7" class="anim-node" x1="380" y1="126" x2="445" y2="136" stroke="#EE0000" stroke-width="1.5"/>
-            <line data-step="7" class="anim-node" x1="380" y1="126" x2="445" y2="174" stroke="#EE0000" stroke-width="1.5"/>
-            <g data-step="7" class="anim-node">
-              <rect x="445" y="46" width="60" height="28" rx="5" fill="#555"/>
-              <text x="475" y="64" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">A1a</text>
-            </g>
-            <g data-step="7" class="anim-node" style="transition-delay:0.1s">
-              <rect x="445" y="84" width="60" height="28" rx="5" fill="#555"/>
-              <text x="475" y="102" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">A1b</text>
-            </g>
-            <g data-step="7" class="anim-node" style="transition-delay:0.2s">
-              <rect x="445" y="122" width="60" height="28" rx="5" fill="#555"/>
-              <text x="475" y="140" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">C1a</text>
-            </g>
-            <g data-step="7" class="anim-node" style="transition-delay:0.3s">
-              <rect x="445" y="160" width="60" height="28" rx="5" fill="#555"/>
-              <text x="475" y="178" text-anchor="middle" fill="#bbb" font-family="Red Hat Text" font-size="9" font-weight="bold">C1b</text>
-            </g>
+            <!-- Step 7: Fan out AB and EA into step 3 -->
+            <line data-step="7" class="anim-node" x1="407" y1="35" x2="540" y2="55" stroke="#EE0000" stroke-width="1.5"/>
+            <g data-step="7" class="anim-node"><text x="480" y="35" fill="#888" font-family="Red Hat Text" font-size="8" font-style="italic">AB</text></g>
+            <line data-step="7" class="anim-node" x1="407" y1="195" x2="540" y2="165" stroke="#EE0000" stroke-width="1.5"/>
+            <g data-step="7" class="anim-node"><text x="480" y="195" fill="#888" font-family="Red Hat Text" font-size="8" font-style="italic">EA</text></g>
+            <line data-step="7" class="anim-node" x1="540" y1="55" x2="555" y2="45" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="7" class="anim-node" x1="540" y1="55" x2="555" y2="75" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="7" class="anim-node" x1="540" y1="165" x2="555" y2="145" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <line data-step="7" class="anim-node" x1="540" y1="165" x2="555" y2="185" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+            <g data-step="7" class="anim-node"><circle cx="575" cy="45" r="16" fill="#888"/><text x="575" y="50" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="8" font-weight="bold">ABD</text></g>
+            <g data-step="7" class="anim-node" style="transition-delay:0.1s"><circle cx="575" cy="80" r="16" fill="#888"/><text x="575" y="85" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="8" font-weight="bold">ABC</text></g>
+            <g data-step="7" class="anim-node" style="transition-delay:0.2s"><circle cx="575" cy="145" r="16" fill="#888"/><text x="575" y="150" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="8" font-weight="bold">EAB</text></g>
+            <g data-step="7" class="anim-node" style="transition-delay:0.3s"><circle cx="575" cy="180" r="16" fill="#888"/><text x="575" y="185" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="8" font-weight="bold">EAC</text></g>
 
             <!-- Step 8: Final scores -->
-            <g data-step="8" class="anim-node">
-              <text x="520" y="65" fill="#FFD700" font-family="Red Hat Text" font-size="9" font-weight="bold">&#x2605; .95</text>
-            </g>
-            <g data-step="8" class="anim-node" style="transition-delay:0.1s">
-              <text x="520" y="103" fill="#888" font-family="Red Hat Text" font-size="9">.67</text>
-            </g>
-            <g data-step="8" class="anim-node" style="transition-delay:0.2s">
-              <text x="520" y="141" fill="#888" font-family="Red Hat Text" font-size="9">.88</text>
-            </g>
-            <g data-step="8" class="anim-node" style="transition-delay:0.3s">
-              <text x="520" y="179" fill="#888" font-family="Red Hat Text" font-size="9">.61</text>
-            </g>
+            <g data-step="8" class="anim-node"><text x="600" y="50" fill="#FFD700" font-family="Red Hat Text" font-size="9" font-weight="bold">&#x2605; .95</text></g>
+            <g data-step="8" class="anim-node" style="transition-delay:0.1s"><text x="600" y="85" fill="#888" font-family="Red Hat Text" font-size="9">.78</text></g>
+            <g data-step="8" class="anim-node" style="transition-delay:0.2s"><text x="600" y="150" fill="#888" font-family="Red Hat Text" font-size="9">.88</text></g>
+            <g data-step="8" class="anim-node" style="transition-delay:0.3s"><text x="600" y="185" fill="#888" font-family="Red Hat Text" font-size="9">.61</text></g>
 
-            <!-- Step 9: Highlight A1a as winner -->
+            <!-- Step 9: Highlight ABD as winner -->
             <g data-step="9" class="anim-node">
-              <rect x="445" y="46" width="60" height="28" rx="5" fill="#EE0000"/>
-              <text x="475" y="64" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">A1a</text>
+              <circle cx="575" cy="45" r="16" fill="#EE0000"/><text x="575" y="50" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="8" font-weight="bold">ABD</text>
             </g>
-            <line data-step="9" class="anim-node" x1="560" y1="60" x2="600" y2="60" stroke="#3E8635" stroke-width="2"/>
+            <line data-step="9" class="anim-node" x1="592" y1="45" x2="640" y2="45" stroke="#3E8635" stroke-width="2"/>
+            <!-- Path trace -->
+            <g data-step="9" class="anim-node" style="transition-delay:0.2s">
+              <text x="390" y="265" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9" font-style="italic">Path: A &#x2192; AB &#x2192; ABD (score .95)</text>
+            </g>
 
             <!-- Step 10: Final output -->
             <g data-step="10" class="anim-node">
-              <rect x="605" y="35" width="80" height="50" rx="10" fill="none" stroke="#3E8635" stroke-width="2"/>
-              <text x="645" y="56" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="12" font-weight="bold">A1a</text>
-              <text x="645" y="75" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="16" font-weight="bold">&#x2713;</text>
+              <rect x="645" y="20" width="80" height="50" rx="10" fill="none" stroke="#3E8635" stroke-width="2"/>
+              <text x="685" y="41" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="11" font-weight="bold">ABD</text>
+              <text x="685" y="60" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="16" font-weight="bold">&#x2713;</text>
             </g>
           </svg>
         `
