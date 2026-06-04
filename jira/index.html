@@ -120,7 +120,7 @@
         <span class="text-sm font-medium">Jira Hygiene</span>
       </div>
       <div class="flex items-center gap-3">
-        <span class="text-xs t-text-secondary font-mono">2026-06-03</span>
+        <span class="text-xs t-text-secondary font-mono">2026-06-04</span>
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
           <svg class="icon-sun w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
           <svg class="icon-moon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
@@ -141,19 +141,19 @@
     <section class="mb-12 fade-in">
       <div class="counter-grid">
         <div class="counter-card">
-          <div class="counter-num text-rh-red">5<span class="text-lg">/6</span></div>
+          <div class="counter-num text-rh-yellow">4<span class="text-lg">/5</span></div>
           <div class="counter-label">Features with no Epics</div>
         </div>
         <div class="counter-card">
-          <div class="counter-num text-rh-red">4<span class="text-lg">/4</span></div>
+          <div class="counter-num text-rh-yellow">2<span class="text-lg">/2</span></div>
           <div class="counter-label">Epics with no Stories</div>
         </div>
         <div class="counter-card">
-          <div class="counter-num text-rh-yellow">4<span class="text-lg">/6</span></div>
+          <div class="counter-num text-rh-yellow">2<span class="text-lg">/5</span></div>
           <div class="counter-label">Features missing fixVersion</div>
         </div>
         <div class="counter-card">
-          <div class="counter-num text-rh-yellow">3</div>
+          <div class="counter-num" style="color: #6B7280;">1</div>
           <div class="counter-label">Orphan Epics</div>
         </div>
         <div class="counter-card">
@@ -161,7 +161,7 @@
           <div class="counter-label">RFE with no Feature</div>
         </div>
         <div class="counter-card">
-          <div class="counter-num" style="color: #6B7280;">2</div>
+          <div class="counter-num" style="color: #6B7280;">1</div>
           <div class="counter-label">Stale (6+ months)</div>
         </div>
       </div>
@@ -179,7 +179,7 @@
         <span class="flow-arrow">→</span>
         <div class="flow-node"><span class="font-bold">RHAIENG Story/Task</span><br><span class="text-xs t-text-secondary">Sprint Work (L0)</span></div>
       </div>
-      <p class="text-center t-text-secondary text-sm mt-2">Parent Outcome: <a href="https://redhat.atlassian.net/browse/RHAISTRAT-1391" target="_blank" class="text-rh-blue hover:underline font-mono text-xs">RHAISTRAT-1391</a> "Inference-Time Scaling for Red Hat AI" <span class="status-new text-xs px-2 py-0.5 rounded-full ml-1">New</span></p>
+      <p class="text-center t-text-secondary text-sm mt-2">Parent Outcome: <a href="https://redhat.atlassian.net/browse/RHAISTRAT-1391" target="_blank" class="text-rh-blue hover:underline font-mono text-xs">RHAISTRAT-1391</a> "Inference-Time Scaling for Red Hat AI" <span class="status-in-progress text-xs px-2 py-0.5 rounded-full ml-1">In Progress</span></p>
     </section>
 
     <!-- RFE Flow Cards -->
@@ -227,14 +227,14 @@
         </div>
       </div>
 
-      <!-- RFE 2: Standalone algorithms -->
-      <div class="t-card border t-card-border rounded-xl p-6 mb-6 fade-in gap-high">
+      <!-- RFE 2: Standalone algorithms — CLOSED -->
+      <div class="t-card border t-card-border rounded-xl p-6 mb-6 fade-in" style="border-left: 4px solid #3E8635; opacity: 0.7;">
         <div class="flex items-start justify-between mb-4 flex-wrap gap-2">
           <div>
             <h3 class="text-lg font-bold">2. Standalone ITS Algorithm Availability</h3>
             <p class="t-text-secondary text-sm">Modular algorithm packaging across deployment surfaces</p>
           </div>
-          <span class="status-in-progress text-xs px-3 py-1 rounded-full font-medium">In Progress</span>
+          <span class="status-done text-xs px-3 py-1 rounded-full font-medium">Closed</span>
         </div>
 
         <div class="flow-chain mb-4">
@@ -244,30 +244,16 @@
             <span class="status-in-progress text-xs px-2 py-0.5 rounded mt-1 inline-block">In Progress</span>
           </a>
           <span class="flow-arrow">→</span>
-          <a href="https://redhat.atlassian.net/browse/RHAISTRAT-1062" target="_blank" class="flow-node hover:border-rh-blue transition-colors">
+          <a href="https://redhat.atlassian.net/browse/RHAISTRAT-1062" target="_blank" class="flow-node hover:border-rh-blue transition-colors" style="border-color: #3E8635;">
             <span class="text-xs t-text-secondary">Feature</span><br>
             <span class="font-mono text-xs">RHAISTRAT-1062</span><br>
-            <span class="status-in-progress text-xs px-2 py-0.5 rounded mt-1 inline-block">In Progress</span>
-            <span class="text-xs block mt-1 t-text-secondary">No fixVersion · Yi Zheng</span>
+            <span class="status-done text-xs px-2 py-0.5 rounded mt-1 inline-block">Closed</span>
+            <span class="text-xs block mt-1 t-text-secondary">Yi Zheng</span>
           </a>
-          <span class="flow-arrow">→</span>
-          <a href="https://redhat.atlassian.net/browse/RHAIENG-3858" target="_blank" class="flow-node hover:border-rh-blue transition-colors" style="border-color: #3E8635;">
-            <span class="text-xs t-text-secondary">Epic</span><br>
-            <span class="font-mono text-xs">RHAIENG-3858</span><br>
-            <span class="status-in-progress text-xs px-2 py-0.5 rounded mt-1 inline-block">In Progress</span>
-            <span class="text-xs block mt-1 t-text-secondary">Shabana Baig</span>
-          </a>
-          <span class="flow-arrow">→</span>
-          <div class="flow-node flow-missing">
-            <span class="text-xs">Stories</span><br>
-            <span class="font-bold text-sm">NONE</span>
-          </div>
         </div>
 
-        <div class="t-card-highlight rounded-lg p-3 text-sm space-y-1">
-          <p class="text-rh-green text-xs font-medium mb-1">✓ Only complete RFE → Feature → Epic chain</p>
-          <p><span class="ask-tag ask-yi">Yi</span> Set fixVersion on Feature and Epic. Break epic into stories.</p>
-          <p><span class="ask-tag ask-luke">Luke</span> Remove stale <code class="text-xs">3.4-candidate</code> label.</p>
+        <div class="rounded-lg p-3 text-sm" style="background: rgba(62, 134, 53, 0.1);">
+          <p class="text-rh-green text-xs font-medium">✓ Python modularization work complete. Rust refactoring of its-hub will be scoped as a separate RFE.</p>
         </div>
       </div>
 
@@ -278,7 +264,7 @@
             <h3 class="text-lg font-bold">3. Reward-Based Algorithms in Gateway</h3>
             <p class="t-text-secondary text-sm">Reward model support via external endpoints</p>
           </div>
-          <span class="status-new text-xs px-3 py-1 rounded-full font-medium">New</span>
+          <span class="status-in-progress text-xs px-3 py-1 rounded-full font-medium">In Progress</span>
         </div>
 
         <div class="flow-chain mb-4">
@@ -291,7 +277,7 @@
           <a href="https://redhat.atlassian.net/browse/RHAISTRAT-1392" target="_blank" class="flow-node hover:border-rh-blue transition-colors">
             <span class="text-xs t-text-secondary">Feature</span><br>
             <span class="font-mono text-xs">RHAISTRAT-1392</span><br>
-            <span class="status-new text-xs px-2 py-0.5 rounded mt-1 inline-block">New</span>
+            <span class="status-in-progress text-xs px-2 py-0.5 rounded mt-1 inline-block">In Progress</span>
             <span class="text-xs block mt-1 t-text-secondary">rhoai-3.5 · Yi Zheng</span>
           </a>
           <span class="flow-arrow">→</span>
@@ -307,8 +293,8 @@
         </div>
 
         <div class="t-card-highlight rounded-lg p-3 text-sm space-y-1">
-          <p class="text-rh-yellow text-xs font-medium mb-1">⚠ fixVersion says 3.5, but status is still New</p>
-          <p><span class="ask-tag ask-yi">Yi</span> Is this actively starting for 3.5? If yes: move to In Progress, create epics. If no: remove fixVersion.</p>
+          <p class="text-rh-green text-xs font-medium mb-1">✓ Status corrected to In Progress. Org-pulse fields populated (RICE: 15.0, Target Version: 3.5).</p>
+          <p><span class="ask-tag ask-yi">Yi</span> Create RHAIENG Epics + stories. Code freeze July 24.</p>
         </div>
       </div>
 
@@ -319,7 +305,7 @@
             <h3 class="text-lg font-bold">4. Training-hub Interop for RL Sampling</h3>
             <p class="t-text-secondary text-sm">Use ITS algorithms inside training-hub RL loops</p>
           </div>
-          <span class="status-new text-xs px-3 py-1 rounded-full font-medium">New</span>
+          <span class="status-in-progress text-xs px-3 py-1 rounded-full font-medium">In Progress</span>
         </div>
 
         <div class="flow-chain mb-4">
@@ -332,8 +318,8 @@
           <a href="https://redhat.atlassian.net/browse/RHAISTRAT-1059" target="_blank" class="flow-node hover:border-rh-blue transition-colors">
             <span class="text-xs t-text-secondary">Feature</span><br>
             <span class="font-mono text-xs">RHAISTRAT-1059</span><br>
-            <span class="status-new text-xs px-2 py-0.5 rounded mt-1 inline-block">New</span>
-            <span class="text-xs block mt-1 text-rh-red">Priority: Undefined</span>
+            <span class="status-in-progress text-xs px-2 py-0.5 rounded mt-1 inline-block">In Progress</span>
+            <span class="text-xs block mt-1 t-text-secondary">Target: rhoai-3.6 · Yi Zheng</span>
           </a>
           <span class="flow-arrow">→</span>
           <div class="flow-node flow-missing">
@@ -348,19 +334,19 @@
         </div>
 
         <div class="t-card-highlight rounded-lg p-3 text-sm space-y-1">
-          <p><span class="ask-tag ask-luke">Luke</span> Fix summary (remove "Cloned from RHAIRFE-1080"), add <code class="text-xs">[Feat]</code> prefix.</p>
-          <p><span class="ask-tag ask-yi">Yi</span> Set priority. Confirm release target. Create epics if targeted.</p>
+          <p class="text-rh-green text-xs font-medium mb-1">✓ Summary fixed, priority set (Normal), org-pulse fields populated (RICE: 24.4, Target Version: 3.6).</p>
+          <p><span class="ask-tag ask-yi">Yi</span> Set fixVersion (eng commitment). Create RHAIENG Epics + stories.</p>
         </div>
       </div>
 
       <!-- RFE 5: Tool calling -->
-      <div class="t-card border t-card-border rounded-xl p-6 mb-6 fade-in gap-critical">
+      <div class="t-card border t-card-border rounded-xl p-6 mb-6 fade-in gap-high">
         <div class="flex items-start justify-between mb-4 flex-wrap gap-2">
           <div>
             <h3 class="text-lg font-bold">5. Tool Calling Reliability for Agentic Workflows</h3>
             <p class="t-text-secondary text-sm">ITS to improve tool-call accuracy in agent pipelines</p>
           </div>
-          <span class="status-new text-xs px-3 py-1 rounded-full font-medium">New</span>
+          <span class="status-in-progress text-xs px-3 py-1 rounded-full font-medium">In Progress</span>
         </div>
 
         <div class="flow-chain mb-4">
@@ -370,17 +356,19 @@
             <span class="status-approved text-xs px-2 py-0.5 rounded mt-1 inline-block">Approved</span>
           </a>
           <span class="flow-arrow">→</span>
-          <a href="https://redhat.atlassian.net/browse/RHAISTRAT-1803" target="_blank" class="flow-node hover:border-rh-blue transition-colors" style="border-color: #EE0000;">
+          <a href="https://redhat.atlassian.net/browse/RHAISTRAT-1803" target="_blank" class="flow-node hover:border-rh-blue transition-colors">
             <span class="text-xs t-text-secondary">Feature</span><br>
             <span class="font-mono text-xs">RHAISTRAT-1803</span><br>
-            <span class="status-new text-xs px-2 py-0.5 rounded mt-1 inline-block">New</span>
-            <span class="text-xs block mt-1 text-rh-red">Wrong component · Unassigned · No parent</span>
+            <span class="status-in-progress text-xs px-2 py-0.5 rounded mt-1 inline-block">In Progress</span>
+            <span class="text-xs block mt-1 t-text-secondary">Target: rhoai-3.5 · Yi Zheng</span>
           </a>
           <span class="flow-arrow">→</span>
-          <div class="flow-node flow-missing">
-            <span class="text-xs">Epic(s)</span><br>
-            <span class="font-bold text-sm">NONE</span>
-          </div>
+          <a href="https://redhat.atlassian.net/browse/RHAIENG-1191" target="_blank" class="flow-node hover:border-rh-blue transition-colors" style="border-color: #F0AB00;">
+            <span class="text-xs t-text-secondary">Epic</span><br>
+            <span class="font-mono text-xs">RHAIENG-1191</span><br>
+            <span class="status-in-progress text-xs px-2 py-0.5 rounded mt-1 inline-block">In Progress</span>
+            <span class="text-xs block mt-1 t-text-secondary">GX Xu · Stale (Dec 2025)</span>
+          </a>
           <span class="flow-arrow">→</span>
           <div class="flow-node flow-missing">
             <span class="text-xs">Stories</span><br>
@@ -389,9 +377,8 @@
         </div>
 
         <div class="t-card-highlight rounded-lg p-3 text-sm space-y-1">
-          <p class="text-rh-red text-xs font-medium mb-1">✗ Most broken chain: wrong component, no parent, unassigned, no fixVersion</p>
-          <p><span class="ask-tag ask-luke">Luke</span> Fix component (Agentic → Inference-Time Techniques), set parent to RHAISTRAT-1391, assign Yi, add <code class="text-xs">[Feat]</code> prefix.</p>
-          <p><span class="ask-tag ask-yi">Yi</span> Set fixVersion if targeted for 3.5. Create RHAIENG Epics.</p>
+          <p class="text-rh-green text-xs font-medium mb-1">✓ Component, parent, assignee, [Feat] prefix all fixed. Org-pulse fields populated (RICE: 71.5, Target Version: 3.5). RHAIENG-1191 parented here.</p>
+          <p><span class="ask-tag ask-yi">Yi</span> Set fixVersion (eng commitment). RHAIENG-1191 needs priority, fixVersion, and stories. Confirm with GX if still active.</p>
         </div>
       </div>
 
@@ -402,7 +389,7 @@
             <h3 class="text-lg font-bold">6. Elastic ITS (Compute-Aware Mode)</h3>
             <p class="t-text-secondary text-sm">Opportunistic ITS using idle GPU capacity</p>
           </div>
-          <span class="status-new text-xs px-3 py-1 rounded-full font-medium">New</span>
+          <span class="status-approved text-xs px-3 py-1 rounded-full font-medium">Refinement</span>
         </div>
 
         <div class="flow-chain mb-4">
@@ -415,8 +402,8 @@
           <a href="https://redhat.atlassian.net/browse/RHAISTRAT-179" target="_blank" class="flow-node hover:border-rh-blue transition-colors">
             <span class="text-xs t-text-secondary">Feature</span><br>
             <span class="font-mono text-xs">RHAISTRAT-179</span><br>
-            <span class="status-new text-xs px-2 py-0.5 rounded mt-1 inline-block">New</span>
-            <span class="text-xs block mt-1 t-text-secondary">No fixVersion · Yi Zheng</span>
+            <span class="status-approved text-xs px-2 py-0.5 rounded mt-1 inline-block">Refinement</span>
+            <span class="text-xs block mt-1 t-text-secondary">No release target yet · Yi Zheng</span>
           </a>
           <span class="flow-arrow">→</span>
           <div class="flow-node flow-missing">
@@ -431,8 +418,8 @@
         </div>
 
         <div class="t-card-highlight rounded-lg p-3 text-sm space-y-1">
-          <p class="t-text-secondary text-xs font-medium mb-1">Acceptable if confirmed as backlog</p>
-          <p><span class="ask-tag ask-yi">Yi</span> Confirm this is intentionally backlog. If so, no action needed now.</p>
+          <p class="text-rh-green text-xs font-medium mb-1">✓ Moved to Refinement. Setting up meeting to scope. Stale target end cleared.</p>
+          <p><span class="ask-tag ask-yi">Yi</span> Participate in refinement meeting to define scope and release target.</p>
         </div>
       </div>
 
@@ -484,50 +471,48 @@
     <!-- Orphan Epics -->
     <section class="mb-12 fade-in">
       <h2 class="text-lg font-bold mb-6 t-text-secondary uppercase tracking-wider text-xs">Orphan Engineering Items</h2>
-      <p class="t-text-secondary text-sm mb-4">RHAIENG items with ITS component but no RFE origin. Need to be linked to a Feature or closed.</p>
+      <p class="t-text-secondary text-sm mb-4">RHAIENG items with ITS component. Resolved items shown for audit trail.</p>
 
       <div class="grid gap-4 md:grid-cols-2">
-        <!-- RHAIENG-1108 -->
-        <div class="t-card border t-card-border rounded-xl p-5 gap-high">
+        <!-- RHAIENG-1108 — RESOLVED -->
+        <div class="t-card border t-card-border rounded-xl p-5" style="border-left: 4px solid #3E8635; opacity: 0.7;">
           <div class="flex items-start justify-between mb-2">
             <a href="https://redhat.atlassian.net/browse/RHAIENG-1108" target="_blank" class="font-mono text-sm text-rh-blue hover:underline">RHAIENG-1108</a>
-            <span class="status-in-progress text-xs px-2 py-0.5 rounded-full">In Progress</span>
+            <span class="status-done text-xs px-2 py-0.5 rounded-full">Closed</span>
           </div>
           <h4 class="font-bold text-sm mb-2">Package ITS Hub Dependencies to Python Index</h4>
-          <div class="text-xs t-text-secondary space-y-1 mb-3">
+          <div class="text-xs t-text-secondary mb-3">
             <p>Assignee: Kai Xu · fixVersion: rhoai-3.0</p>
-            <p>Parent Feature: <strong class="text-rh-red">NONE</strong> (clone link to closed RHAISTRAT-77)</p>
-            <p>Stories: 0</p>
           </div>
-          <p class="text-sm"><span class="ask-tag ask-kai">Kai</span> Is this done (3.0 shipped)? If yes, close it. If ongoing, update fixVersion and link to a Feature.</p>
+          <p class="text-sm text-rh-green text-xs">✓ Resolved. No action needed.</p>
         </div>
 
-        <!-- RHAIENG-1191 -->
-        <div class="t-card border t-card-border rounded-xl p-5 gap-high">
+        <!-- RHAIENG-1191 — PARENTED -->
+        <div class="t-card border t-card-border rounded-xl p-5" style="border-left: 4px solid #F0AB00;">
           <div class="flex items-start justify-between mb-2">
             <a href="https://redhat.atlassian.net/browse/RHAIENG-1191" target="_blank" class="font-mono text-sm text-rh-blue hover:underline">RHAIENG-1191</a>
-            <span class="status-stale text-xs px-2 py-0.5 rounded-full">Stale</span>
+            <span class="status-in-progress text-xs px-2 py-0.5 rounded-full">In Progress</span>
           </div>
           <h4 class="font-bold text-sm mb-2">Agentic Patterns Upstream Development</h4>
           <div class="text-xs t-text-secondary space-y-1 mb-3">
             <p>Assignee: GX Xu · Priority: <span class="text-rh-red">Undefined</span></p>
-            <p>Parent Feature: <strong class="text-rh-red">NONE</strong></p>
+            <p>Parent: <span class="text-rh-green">RHAISTRAT-1803</span> (newly linked)</p>
             <p>Last updated: <strong class="text-rh-red">Dec 2025</strong> (6 months ago)</p>
           </div>
-          <p class="text-sm"><span class="ask-tag ask-yi">Yi/GX</span> Still active? If yes: set priority, fixVersion, parent to a Feature. If not: close it.</p>
+          <p class="text-sm"><span class="ask-tag ask-yi">Yi/GX</span> Set priority and fixVersion. Confirm still active or close.</p>
         </div>
 
         <!-- RHAIENG-3933 -->
-        <div class="t-card border t-card-border rounded-xl p-5 gap-medium">
+        <div class="t-card border t-card-border rounded-xl p-5 gap-critical">
           <div class="flex items-start justify-between mb-2">
             <a href="https://redhat.atlassian.net/browse/RHAIENG-3933" target="_blank" class="font-mono text-sm text-rh-blue hover:underline">RHAIENG-3933</a>
             <span class="status-new text-xs px-2 py-0.5 rounded-full">New</span>
           </div>
           <h4 class="font-bold text-sm mb-2">Placeholder: Create Epics for Gateway Feature</h4>
           <div class="text-xs t-text-secondary mb-3">
-            <p>Assignee: Yi Zheng · Created March 2026</p>
+            <p>Assignee: Yi Zheng · Created March 2026 (3 months ago)</p>
           </div>
-          <p class="text-sm"><span class="ask-tag ask-yi">Yi</span> Act on this (Gateway is 3.5 priority) or close if epics will be created differently.</p>
+          <p class="text-sm"><span class="ask-tag ask-yi">Yi</span> <strong>Urgent:</strong> Gateway is 3.5 with July 24 code freeze. Create the epics.</p>
         </div>
 
         <!-- RHAIENG-3934 -->
@@ -540,25 +525,23 @@
           <div class="text-xs t-text-secondary mb-3">
             <p>Assignee: Yi Zheng · Created March 2026</p>
           </div>
-          <p class="text-sm"><span class="ask-tag ask-yi">Yi</span> Close if Elastic ITS is confirmed backlog.</p>
+          <p class="text-sm"><span class="ask-tag ask-yi">Yi</span> Keep open. Elastic ITS is in Refinement; epics needed once scope is defined.</p>
         </div>
       </div>
     </section>
 
     <!-- Outcome issue -->
     <section class="mb-12 fade-in">
-      <h2 class="text-lg font-bold mb-6 t-text-secondary uppercase tracking-wider text-xs">Outcome-Level Fix</h2>
-      <div class="t-card border t-card-border rounded-xl p-5 gap-critical">
+      <h2 class="text-lg font-bold mb-6 t-text-secondary uppercase tracking-wider text-xs">Outcome-Level Status</h2>
+      <div class="t-card border t-card-border rounded-xl p-5" style="border-left: 4px solid #3E8635;">
         <div class="flex items-start justify-between mb-2">
           <a href="https://redhat.atlassian.net/browse/RHAISTRAT-1391" target="_blank" class="font-mono text-sm text-rh-blue hover:underline">RHAISTRAT-1391</a>
-          <span class="status-new text-xs px-2 py-0.5 rounded-full">New</span>
+          <span class="status-in-progress text-xs px-2 py-0.5 rounded-full">In Progress</span>
         </div>
         <h4 class="font-bold mb-2">Inference-Time Scaling for Red Hat AI (Outcome)</h4>
         <div class="text-xs t-text-secondary mb-3">
-          <p>Has 2 child Features "In Progress" but Outcome itself is stuck in "New".</p>
-          <p>Missing: fixVersion, labels.</p>
+          <p>✓ Moved to In Progress. 3 child Features actively in progress (Gateway, Reward Algos, Tool Calling), 1 in Refinement (Elastic ITS), 1 targeting 3.6 (Training-hub interop).</p>
         </div>
-        <p class="text-sm"><span class="ask-tag ask-luke">Luke</span> Move to "In Progress". Set fixVersion.</p>
       </div>
     </section>
 
@@ -567,38 +550,40 @@
       <h2 class="text-lg font-bold mb-6 t-text-secondary uppercase tracking-wider text-xs">Consolidated Action Items</h2>
 
       <div class="space-y-6">
-        <!-- Luke -->
-        <div class="t-card border t-card-border rounded-xl p-5">
-          <h3 class="font-bold mb-3 flex items-center gap-2"><span class="ask-tag ask-luke" style="margin-right:0">Luke</span> PM Fixes (do today)</h3>
-          <ul class="space-y-2 text-sm">
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1391: Move to "In Progress"</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1059: Fix summary (remove clone suffix, add [Feat] prefix)</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1803: Fix component → Inference-Time Techniques</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1803: Set parent → RHAISTRAT-1391</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1803: Add [Feat] prefix, assign Yi Zheng</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-178 + 1062: Remove stale <code>3.4-candidate</code> labels</li>
+        <!-- Luke — DONE -->
+        <div class="t-card border t-card-border rounded-xl p-5" style="border-left: 4px solid #3E8635; opacity: 0.7;">
+          <h3 class="font-bold mb-3 flex items-center gap-2"><span class="ask-tag ask-luke" style="margin-right:0">Luke</span> PM Fixes <span class="text-rh-green text-xs font-medium ml-2">ALL COMPLETE</span></h3>
+          <ul class="space-y-2 text-sm t-text-secondary">
+            <li class="flex items-start gap-2"><span>✓</span> RHAISTRAT-1391: Moved to In Progress</li>
+            <li class="flex items-start gap-2"><span>✓</span> RHAISTRAT-1059: Summary fixed, [Feat] prefix, priority set to Normal</li>
+            <li class="flex items-start gap-2"><span>✓</span> RHAISTRAT-1803: Component, parent, assignee, [Feat] prefix all fixed</li>
+            <li class="flex items-start gap-2"><span>✓</span> RHAISTRAT-178 + 1062: Stale 3.4-candidate labels removed</li>
+            <li class="flex items-start gap-2"><span>✓</span> RHAISTRAT-1062: Closed (Python modularization complete)</li>
+            <li class="flex items-start gap-2"><span>✓</span> RHAISTRAT-1392: Moved to In Progress</li>
+            <li class="flex items-start gap-2"><span>✓</span> RHAISTRAT-179: Moved to Refinement, stale target end cleared</li>
+            <li class="flex items-start gap-2"><span>✓</span> RHAIENG-1191: Parented to RHAISTRAT-1803</li>
+            <li class="flex items-start gap-2"><span>✓</span> Org-pulse fields populated on all active Features (RICE, status summary, color status, docs required, target version, target end, team)</li>
           </ul>
         </div>
 
         <!-- Yi -->
-        <div class="t-card border t-card-border rounded-xl p-5">
+        <div class="t-card border t-card-border rounded-xl p-5 gap-critical">
           <h3 class="font-bold mb-3 flex items-center gap-2"><span class="ask-tag ask-yi" style="margin-right:0">Yi</span> Eng Breakdown (discuss at sync)</h3>
           <ul class="space-y-2 text-sm">
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-178 (Gateway): Create RHAIENG Epics + stories. Code freeze July 24.</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1062 + RHAIENG-3858: Set fixVersions. Break epic into stories.</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1392 (Reward Algos): Confirm 3.5 targeting or remove fixVersion.</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1059 (training-hub): Set priority, confirm release target.</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1803 (Tool calling): Set fixVersion, create RHAIENG Epics.</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-179 (Elastic ITS): Confirm backlog status.</li>
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAIENG-1191 (Agentic patterns): Active or close? Set parent + priority.</li>
+            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> <strong>RHAISTRAT-178 (Gateway):</strong> Create RHAIENG Epics + stories. <strong class="text-rh-red">3.5 code freeze July 24.</strong></li>
+            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1392 (Reward Algos): Create RHAIENG Epics + stories for 3.5.</li>
+            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1803 (Tool calling): Set fixVersion (eng commitment). Create RHAIENG Epics.</li>
+            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-1059 (training-hub): Set fixVersion for 3.6. Create RHAIENG Epics.</li>
+            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAISTRAT-179 (Elastic ITS): Join refinement meeting to scope.</li>
+            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAIENG-1191 (Agentic patterns): Set priority + fixVersion, confirm with GX if still active.</li>
           </ul>
         </div>
 
-        <!-- Kai -->
-        <div class="t-card border t-card-border rounded-xl p-5">
-          <h3 class="font-bold mb-3 flex items-center gap-2"><span class="ask-tag ask-kai" style="margin-right:0">Kai</span></h3>
-          <ul class="space-y-2 text-sm">
-            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAIENG-1108 (Python packaging): Close if 3.0 work is done, or update fixVersion.</li>
+        <!-- Kai — RESOLVED -->
+        <div class="t-card border t-card-border rounded-xl p-5" style="border-left: 4px solid #3E8635; opacity: 0.7;">
+          <h3 class="font-bold mb-3 flex items-center gap-2"><span class="ask-tag ask-kai" style="margin-right:0">Kai</span> <span class="text-rh-green text-xs font-medium ml-2">RESOLVED</span></h3>
+          <ul class="space-y-2 text-sm t-text-secondary">
+            <li class="flex items-start gap-2"><span>✓</span> RHAIENG-1108 (Python packaging): Closed.</li>
           </ul>
         </div>
 
@@ -607,6 +592,7 @@
           <h3 class="font-bold mb-3 flex items-center gap-2"><span class="ask-tag ask-team" style="margin-right:0">Team Decision</span></h3>
           <ul class="space-y-2 text-sm">
             <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> RHAIRFE-633 (synthetic datasets): Approve, reject, or defer. 9+ months in stakeholder review.</li>
+            <li class="flex items-start gap-2"><span class="t-text-secondary">☐</span> New RFE needed: Rust refactoring of its-hub repo (follow-on from closed RHAISTRAT-1062).</li>
           </ul>
         </div>
       </div>
