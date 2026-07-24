@@ -150,6 +150,26 @@
     /* Clickable card hint */
     .alg-clickable { cursor: pointer; }
     .alg-clickable:hover { border-color: #EE0000 !important; }
+
+    /* Accessibility: screen-reader only */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* Accessibility: focus indicators */
+    *:focus-visible {
+      outline: 2px solid #EE0000;
+      outline-offset: 2px;
+    }
+
+    /* Accessibility: reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { transition: none !important; opacity: 1 !important; transform: none !important; }
+      .anim-node, .anim-line { transition: none !important; animation: none !important; }
+      @keyframes pulse { 0%, 100% { box-shadow: none; } }
+    }
+
+    /* Accessibility: link hover underlines */
+    a:hover { text-decoration: underline; }
+    nav a:hover, .mobile-menu a:hover, button:hover { text-decoration: none; }
   </style>
 </head>
 <body class="t-body t-text">
@@ -174,7 +194,7 @@
         <a href="#faq" class="nav-link t-text-secondary hover:t-text-heading transition-colors">FAQ</a>
       </div>
       <div class="flex items-center gap-3">
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode" aria-pressed="true">
           <svg class="icon-sun w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
           <svg class="icon-moon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
         </button>
@@ -505,52 +525,52 @@
           </div>
           <div>
             <div class="space-y-3">
-              <div class="t-code-bg rounded-lg p-4">
+              <div class="t-code-bg rounded-lg p-4" role="img" aria-label="OOM / CrashLoopBackOff accuracy improved from 70% to 100%">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-sm t-text-heading">OOM / CrashLoopBackOff</span>
                   <span class="text-rh-green font-bold text-sm">70% &rarr; 100%</span>
                 </div>
                 <div class="w-full t-card rounded-full h-2 mb-1">
-                  <div class="t-bar-dim h-2 rounded-full" style="width: 70%"></div>
+                  <div class="t-bar-dim h-2 rounded-full" style="width: 70%"><span class="sr-only">Baseline: 70%</span></div>
                 </div>
                 <div class="w-full t-card rounded-full h-2">
-                  <div class="bg-rh-green h-2 rounded-full" style="width: 100%"></div>
+                  <div class="bg-rh-green h-2 rounded-full" style="width: 100%"><span class="sr-only">With ITS: 100%</span></div>
                 </div>
               </div>
-              <div class="t-code-bg rounded-lg p-4">
+              <div class="t-code-bg rounded-lg p-4" role="img" aria-label="Network Policy Mismatch accuracy improved from 51% to 85%">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-sm t-text-heading">Network Policy Mismatch</span>
                   <span class="text-rh-green font-bold text-sm">51% &rarr; 85%</span>
                 </div>
                 <div class="w-full t-card rounded-full h-2 mb-1">
-                  <div class="t-bar-dim h-2 rounded-full" style="width: 51%"></div>
+                  <div class="t-bar-dim h-2 rounded-full" style="width: 51%"><span class="sr-only">Baseline: 51%</span></div>
                 </div>
                 <div class="w-full t-card rounded-full h-2">
-                  <div class="bg-rh-green h-2 rounded-full" style="width: 85%"></div>
+                  <div class="bg-rh-green h-2 rounded-full" style="width: 85%"><span class="sr-only">With ITS: 85%</span></div>
                 </div>
               </div>
-              <div class="t-code-bg rounded-lg p-4">
+              <div class="t-code-bg rounded-lg p-4" role="img" aria-label="Scheduled Outage Detection accuracy improved from 10% to 90%">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-sm t-text-heading">Scheduled Outage Detection</span>
                   <span class="text-rh-green font-bold text-sm">10% &rarr; 90%</span>
                 </div>
                 <div class="w-full t-card rounded-full h-2 mb-1">
-                  <div class="t-bar-dim h-2 rounded-full" style="width: 10%"></div>
+                  <div class="t-bar-dim h-2 rounded-full" style="width: 10%"><span class="sr-only">Baseline: 10%</span></div>
                 </div>
                 <div class="w-full t-card rounded-full h-2">
-                  <div class="bg-rh-green h-2 rounded-full" style="width: 90%"></div>
+                  <div class="bg-rh-green h-2 rounded-full" style="width: 90%"><span class="sr-only">With ITS: 90%</span></div>
                 </div>
               </div>
-              <div class="t-code-bg rounded-lg p-4">
+              <div class="t-code-bg rounded-lg p-4" role="img" aria-label="Periodic Failure Window accuracy improved from 0% to 100%">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-sm t-text-heading">Periodic Failure Window</span>
                   <span class="text-rh-green font-bold text-sm">0% &rarr; 100%</span>
                 </div>
                 <div class="w-full t-card rounded-full h-2 mb-1">
-                  <div class="t-bar-dim h-2 rounded-full" style="width: 2%"></div>
+                  <div class="t-bar-dim h-2 rounded-full" style="width: 2%"><span class="sr-only">Baseline: 0%</span></div>
                 </div>
                 <div class="w-full t-card rounded-full h-2">
-                  <div class="bg-rh-green h-2 rounded-full" style="width: 100%"></div>
+                  <div class="bg-rh-green h-2 rounded-full" style="width: 100%"><span class="sr-only">With ITS: 100%</span></div>
                 </div>
               </div>
             </div>
@@ -648,40 +668,40 @@
             </ul>
           </div>
           <div class="space-y-4">
-            <div class="t-code-bg rounded-lg p-4">
+            <div class="t-code-bg rounded-lg p-4" role="img" aria-label="HealthBench-Hard healthcare score improved by 8.7%">
               <div class="flex justify-between items-center mb-2">
                 <span class="text-sm t-text-heading">HealthBench-Hard (healthcare)</span>
                 <span class="text-rh-green font-bold text-sm">+8.7%</span>
               </div>
               <div class="w-full t-card rounded-full h-2 mb-1">
-                <div class="t-bar-dim h-2 rounded-full" style="width: 60%"></div>
+                <div class="t-bar-dim h-2 rounded-full" style="width: 60%"><span class="sr-only">Baseline: 60%</span></div>
               </div>
               <div class="w-full t-card rounded-full h-2">
-                <div class="bg-rh-green h-2 rounded-full" style="width: 68%"></div>
+                <div class="bg-rh-green h-2 rounded-full" style="width: 68%"><span class="sr-only">With ITS: 68%</span></div>
               </div>
             </div>
-            <div class="t-code-bg rounded-lg p-4">
+            <div class="t-code-bg rounded-lg p-4" role="img" aria-label="AIME-2026 math score improved by 9.2 percentage points">
               <div class="flex justify-between items-center mb-2">
                 <span class="text-sm t-text-heading">AIME-2026 (math)</span>
                 <span class="text-rh-green font-bold text-sm">+9.2pp</span>
               </div>
               <div class="w-full t-card rounded-full h-2 mb-1">
-                <div class="t-bar-dim h-2 rounded-full" style="width: 14%"></div>
+                <div class="t-bar-dim h-2 rounded-full" style="width: 14%"><span class="sr-only">Baseline: 14%</span></div>
               </div>
               <div class="w-full t-card rounded-full h-2">
-                <div class="bg-rh-green h-2 rounded-full" style="width: 37%"></div>
+                <div class="bg-rh-green h-2 rounded-full" style="width: 37%"><span class="sr-only">With ITS: 37%</span></div>
               </div>
             </div>
-            <div class="t-code-bg rounded-lg p-4">
+            <div class="t-code-bg rounded-lg p-4" role="img" aria-label="Fusion360 engineering median IoU improved by 18.1%">
               <div class="flex justify-between items-center mb-2">
                 <span class="text-sm t-text-heading">Fusion360 (engineering)</span>
                 <span class="text-rh-green font-bold text-sm">+18.1% median IoU</span>
               </div>
               <div class="w-full t-card rounded-full h-2 mb-1">
-                <div class="t-bar-dim h-2 rounded-full" style="width: 38%"></div>
+                <div class="t-bar-dim h-2 rounded-full" style="width: 38%"><span class="sr-only">Baseline: 38%</span></div>
               </div>
               <div class="w-full t-card rounded-full h-2">
-                <div class="bg-rh-green h-2 rounded-full" style="width: 48%"></div>
+                <div class="bg-rh-green h-2 rounded-full" style="width: 48%"><span class="sr-only">With ITS: 48%</span></div>
               </div>
             </div>
           </div>
@@ -1416,7 +1436,7 @@ X-ITS-Algorithm: self_consistency</code>
   </footer>
 
   <!-- Algorithm Modal -->
-  <div id="alg-modal-overlay" class="alg-modal-overlay">
+  <div id="alg-modal-overlay" class="alg-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="alg-modal-title">
     <div class="alg-modal">
       <div class="alg-modal-header">
         <h3 id="alg-modal-title" class="font-display font-bold text-xl t-text-heading"></h3>
@@ -1473,11 +1493,16 @@ X-ITS-Algorithm: self_consistency</code>
     const themeToggle = document.getElementById('theme-toggle');
     const root = document.documentElement;
     const stored = localStorage.getItem('theme');
-    if (stored === 'light') root.classList.remove('dark');
+    if (stored === 'light') {
+      root.classList.remove('dark');
+      themeToggle.setAttribute('aria-pressed', 'false');
+    }
 
     themeToggle.addEventListener('click', () => {
       root.classList.toggle('dark');
-      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      const isDark = root.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
     });
 
     // Algorithm modal system
