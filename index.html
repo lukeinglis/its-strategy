@@ -171,6 +171,7 @@
         <a href="#roadmap" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Roadmap</a>
         <a href="#publications" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Research</a>
         <a href="#team" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Team</a>
+        <a href="#faq" class="nav-link t-text-secondary hover:t-text-heading transition-colors">FAQ</a>
       </div>
       <div class="flex items-center gap-3">
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
@@ -196,6 +197,7 @@
         <a href="#roadmap" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Roadmap</a>
         <a href="#publications" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Research</a>
         <a href="#team" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Team</a>
+        <a href="#faq" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">FAQ</a>
       </div>
     </div>
   </nav>
@@ -905,7 +907,67 @@ X-ITS-Algorithm: self_consistency</code>
   <section id="landscape" class="py-20 md:py-28 border-t t-card-border">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="fade-in font-display font-bold text-3xl md:text-4xl t-text-heading mb-4">Competitive Landscape</h2>
-      <p class="fade-in t-text-secondary text-lg mb-16 max-w-2xl">Every major provider now ships thinking budget controls. The market has validated inference-time compute scaling. Red Hat's differentiation: ITS as infrastructure, not as a model feature.</p>
+      <p class="fade-in t-text-secondary text-lg mb-8 max-w-2xl">Every major provider now ships thinking budget controls. The market has validated inference-time compute scaling. Red Hat's differentiation: ITS as infrastructure, not as a model feature.</p>
+
+      <p class="fade-in t-text-secondary text-lg mb-8 max-w-3xl">The inference-time scaling market exploded in 2025&ndash;2026. OpenAI, Google, and Anthropic all shipped API-level thinking budget controls. Inference costs for frontier providers now exceed training costs &mdash; OpenAI&rsquo;s inference spend hit $14.1B in 2026, Anthropic&rsquo;s annualized compute costs run at $4.5B. The shift from static single-shot inference to dynamic compute allocation is production reality. Red Hat&rsquo;s differentiation is not whether to do ITS, but how: infrastructure-level, not model-level.</p>
+
+      <!-- Comparison Table -->
+      <div class="fade-in overflow-x-auto mb-16">
+        <table class="w-full border-collapse t-card border t-card-border rounded-lg text-sm" aria-label="Competitive comparison of inference-time scaling approaches">
+          <thead>
+            <tr class="border-b t-card-border">
+              <th class="text-left p-4 font-display font-bold t-text-heading">Feature</th>
+              <th class="text-center p-4 font-display font-bold text-rh-red t-card-highlight border-x t-card-border">Red Hat ITS</th>
+              <th class="text-center p-4 font-display font-bold t-text-heading">OpenAI o1</th>
+              <th class="text-center p-4 font-display font-bold t-text-heading">Google Gemini 2.5</th>
+              <th class="text-center p-4 font-display font-bold t-text-heading">Anthropic Claude</th>
+              <th class="text-center p-4 font-display font-bold t-text-heading">DeepSeek R1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b t-card-border">
+              <td class="p-4 t-text-heading font-medium">Model-agnostic</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> Any model</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> o1 only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Gemini only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Claude only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> R1 only</td>
+            </tr>
+            <tr class="border-b t-card-border">
+              <td class="p-4 t-text-heading font-medium">On-prem / air-gapped</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> Yes</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Cloud only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Cloud only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Cloud only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Cloud only</td>
+            </tr>
+            <tr class="border-b t-card-border">
+              <td class="p-4 t-text-heading font-medium">Open source</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> Apache 2.0</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Proprietary</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Proprietary</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Proprietary</td>
+              <td class="text-center p-4 t-text-secondary"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> MIT</td>
+            </tr>
+            <tr class="border-b t-card-border">
+              <td class="p-4 t-text-heading font-medium">Infrastructure-level</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> Gateway</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Model feature</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Model feature</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Model feature</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Model feature</td>
+            </tr>
+            <tr>
+              <td class="p-4 t-text-heading font-medium">Algorithm choice</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> 8 algorithms</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Opaque</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Opaque</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Opaque</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Opaque</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <!-- Differentiators -->
       <h3 class="fade-in font-display font-bold text-xl t-text-heading mb-6">Red Hat Differentiators</h3>
@@ -1278,6 +1340,66 @@ X-ITS-Algorithm: self_consistency</code>
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-20 md:py-28 border-t t-card-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="fade-in font-display font-bold text-3xl md:text-4xl t-text-heading mb-4">Frequently Asked Questions</h2>
+      <p class="fade-in t-text-secondary text-lg mb-16 max-w-2xl">Common questions about inference-time scaling and how to adopt it.</p>
+
+      <div class="fade-in space-y-4 max-w-3xl">
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">What&rsquo;s the difference between ITS and model fine-tuning?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>ITS requires $0 retraining and works with any model. You get better answers by generating and evaluating multiple responses at inference time &mdash; no weight changes, no training data, no GPU hours for fine-tuning. Fine-tuning is model-specific, expensive to iterate on, and locks you into a single model version. ITS is complementary: you can fine-tune a model and then apply ITS on top for additional gains.</p>
+          </div>
+        </details>
+
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">Which algorithm should I start with?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>Self-Consistency for most tasks. It requires no reward model, works out of the box, and handles factual questions, classification, and tool calling well. Use Best-of-N when you have a reward model or LLM-as-judge and need quality scoring rather than majority agreement. See the algorithm cards in the <a href="#what" class="text-rh-red hover:underline">How It Works</a> section for detailed comparisons.</p>
+          </div>
+        </details>
+
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">What&rsquo;s the compute overhead?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>N=8 means 8x inference compute, but 0x training compute. The trade is often favorable for high-stakes decisions where a wrong answer costs more than a slow one. Candidates are generated in parallel, so wall-clock latency scales sub-linearly. The compute budget is a runtime configuration choice &mdash; you can set N=2 for low-stakes queries and N=16 for critical ones.</p>
+          </div>
+        </details>
+
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">Can ITS work with our existing model endpoint?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>Yes, if it&rsquo;s OpenAI-compatible. ITS is infrastructure-level, not model-level &mdash; it sits between your application and any model server that speaks the OpenAI Chat Completion API. That includes vLLM, TGI, OpenAI, and any compatible endpoint. No model changes or special model versions required.</p>
+          </div>
+        </details>
+
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">How do we get started?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>Two paths: install <code class="t-code-bg rounded px-1.5 py-0.5 text-rh-green">its-hub</code> via pip for the Python SDK, or deploy the upstream gateway for transparent HTTP-level scaling. Both are available today. See the <a href="#how-to-use" class="text-rh-red hover:underline">How to Use</a> section for quick-start code, architecture diagrams, and deployment options.</p>
+          </div>
+        </details>
       </div>
     </div>
   </section>
