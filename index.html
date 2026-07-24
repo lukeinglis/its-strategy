@@ -1451,12 +1451,20 @@ X-ITS-Algorithm: self_consistency</code>
         <div class="alg-modal-sidebar" id="alg-modal-sidebar">
         </div>
       </div>
-      <div class="alg-modal-footer">
-        <button id="alg-btn-prev" class="t-text-secondary hover:t-text-heading text-sm font-bold px-4 py-2 rounded border t-card-border transition-colors" disabled>Prev</button>
-        <p id="alg-step-text" class="anim-step-text text-base t-text text-center flex-1 px-4 font-medium"></p>
-        <div class="flex items-center gap-3">
-          <span id="alg-step-num" class="text-xs t-text-secondary"></span>
-          <button id="alg-btn-next" class="text-sm font-bold px-4 py-2 rounded bg-rh-red hover:bg-rh-red-dark text-white transition-colors">Next</button>
+      <div class="alg-modal-footer" style="flex-direction: column; gap: 12px;">
+        <div id="alg-progress-bar" style="width: 100%; height: 3px; border-radius: 3px; background: var(--bar-dim); overflow: hidden;">
+          <div id="alg-progress-fill" style="height: 100%; border-radius: 3px; background: #EE0000; width: 0%; transition: width 0.3s ease;"></div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+          <div class="flex items-center gap-2">
+            <button id="alg-btn-pause" class="t-text-secondary hover:t-text-heading text-sm font-bold px-3 py-2 rounded border t-card-border transition-colors" aria-label="Pause animation" style="min-width: 40px;">| |</button>
+            <button id="alg-btn-prev" class="t-text-secondary hover:t-text-heading text-sm font-bold px-4 py-2 rounded border t-card-border transition-colors" disabled>Prev</button>
+          </div>
+          <p id="alg-step-text" class="anim-step-text text-base t-text text-center flex-1 px-4 font-medium"></p>
+          <div class="flex items-center gap-3">
+            <span id="alg-step-num" class="text-xs t-text-secondary"></span>
+            <button id="alg-btn-next" class="text-sm font-bold px-4 py-2 rounded bg-rh-red hover:bg-rh-red-dark text-white transition-colors">Next</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1513,12 +1521,32 @@ X-ITS-Algorithm: self_consistency</code>
     const algStepNum = document.getElementById('alg-step-num');
     const algBtnPrev = document.getElementById('alg-btn-prev');
     const algBtnNext = document.getElementById('alg-btn-next');
+    const algBtnPause = document.getElementById('alg-btn-pause');
+    const algProgressFill = document.getElementById('alg-progress-fill');
 
     let algCurrentStep = 0;
     let algSteps = [];
     let algAnimTimer = null;
+    let algPaused = false;
 
     const algSidebar = document.getElementById('alg-modal-sidebar');
+
+    function updateAlgProgress() {
+      const pct = algSteps.length > 1 ? ((algCurrentStep + 1) / algSteps.length) * 100 : 100;
+      algProgressFill.style.width = pct + '%';
+    }
+
+    function updatePauseBtn() {
+      algBtnPause.textContent = algPaused ? '▶' : '| |';
+      algBtnPause.setAttribute('aria-label', algPaused ? 'Resume animation' : 'Pause animation');
+    }
+
+    function addColorBlindStrokes() {
+      algSvg.querySelectorAll('rect[fill="#EE0000"], circle[fill="#EE0000"]').forEach(el => {
+        el.setAttribute('stroke', 'white');
+        el.setAttribute('stroke-width', '2');
+      });
+    }
 
     function openAlgModal(alg) {
       const config = algConfigs[alg];
@@ -1528,7 +1556,10 @@ X-ITS-Algorithm: self_consistency</code>
       algSidebar.innerHTML = config.sidebar || '';
       algSteps = config.steps;
       algCurrentStep = 0;
+      algPaused = false;
+      updatePauseBtn();
       showAlgStep(0);
+      addColorBlindStrokes();
       algOverlay.classList.add('open');
       document.body.style.overflow = 'hidden';
       autoPlayAlg();
@@ -1538,6 +1569,8 @@ X-ITS-Algorithm: self_consistency</code>
       algOverlay.classList.remove('open');
       document.body.style.overflow = '';
       clearTimeout(algAnimTimer);
+      algPaused = false;
+      updatePauseBtn();
     }
 
     function showAlgStep(idx) {
@@ -1546,7 +1579,7 @@ X-ITS-Algorithm: self_consistency</code>
       algStepNum.textContent = (idx + 1) + ' / ' + algSteps.length;
       algBtnPrev.disabled = idx === 0;
       algBtnNext.textContent = idx === algSteps.length - 1 ? 'Replay' : 'Next';
-      // Show/hide SVG elements for each step
+      updateAlgProgress();
       algSvg.querySelectorAll('[data-step]').forEach(el => {
         const step = parseInt(el.dataset.step);
         if (step <= idx) {
@@ -1555,16 +1588,28 @@ X-ITS-Algorithm: self_consistency</code>
           el.classList.remove('show');
         }
       });
+      addColorBlindStrokes();
     }
 
     function autoPlayAlg() {
       clearTimeout(algAnimTimer);
+      if (algPaused) return;
       if (algCurrentStep < algSteps.length - 1) {
         algAnimTimer = setTimeout(() => {
           algCurrentStep++;
           showAlgStep(algCurrentStep);
           autoPlayAlg();
         }, algSteps[algCurrentStep].duration || 1500);
+      }
+    }
+
+    function toggleAlgPause() {
+      algPaused = !algPaused;
+      updatePauseBtn();
+      if (!algPaused) {
+        autoPlayAlg();
+      } else {
+        clearTimeout(algAnimTimer);
       }
     }
 
@@ -1575,9 +1620,13 @@ X-ITS-Algorithm: self_consistency</code>
     document.getElementById('alg-modal-close').addEventListener('click', closeAlgModal);
     algOverlay.addEventListener('click', (e) => { if (e.target === algOverlay) closeAlgModal(); });
 
+    algBtnPause.addEventListener('click', toggleAlgPause);
+
     algBtnNext.addEventListener('click', () => {
       clearTimeout(algAnimTimer);
       if (algCurrentStep >= algSteps.length - 1) {
+        algPaused = false;
+        updatePauseBtn();
         showAlgStep(0);
         autoPlayAlg();
       } else {
@@ -1589,6 +1638,61 @@ X-ITS-Algorithm: self_consistency</code>
       clearTimeout(algAnimTimer);
       if (algCurrentStep > 0) { algCurrentStep--; showAlgStep(algCurrentStep); }
     });
+
+    // Keyboard shortcuts (active when modal is open)
+    document.addEventListener('keydown', (e) => {
+      if (!algOverlay.classList.contains('open')) return;
+      switch (e.key) {
+        case 'ArrowLeft':
+          e.preventDefault();
+          clearTimeout(algAnimTimer);
+          if (algCurrentStep > 0) { algCurrentStep--; showAlgStep(algCurrentStep); }
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          clearTimeout(algAnimTimer);
+          if (algCurrentStep >= algSteps.length - 1) {
+            algPaused = false;
+            updatePauseBtn();
+            showAlgStep(0);
+            autoPlayAlg();
+          } else {
+            algCurrentStep++;
+            showAlgStep(algCurrentStep);
+          }
+          break;
+        case ' ':
+          e.preventDefault();
+          toggleAlgPause();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          closeAlgModal();
+          break;
+      }
+    });
+
+    // Mobile swipe support on SVG container
+    (function() {
+      let touchStartX = null;
+      algSvg.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      algSvg.addEventListener('touchend', (e) => {
+        if (touchStartX === null) return;
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+        if (Math.abs(deltaX) < 50) return;
+        clearTimeout(algAnimTimer);
+        if (deltaX < -50 && algCurrentStep < algSteps.length - 1) {
+          algCurrentStep++;
+          showAlgStep(algCurrentStep);
+        } else if (deltaX > 50 && algCurrentStep > 0) {
+          algCurrentStep--;
+          showAlgStep(algCurrentStep);
+        }
+      }, { passive: true });
+    })();
 
     // Algorithm configs
     const algConfigs = {
