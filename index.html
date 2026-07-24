@@ -167,6 +167,15 @@
       @keyframes pulse { 0%, 100% { box-shadow: none; } }
     }
 
+    /* Mobile touch targets — 44px minimum per iOS HIG / WCAG */
+    @media (max-width: 768px) {
+      .theme-toggle, #menu-toggle, #menu-close { min-width: 44px; min-height: 44px; }
+    }
+
+    /* Back-to-top button */
+    .back-to-top { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+
     /* Accessibility: link hover underlines */
     a:hover { text-decoration: underline; }
     nav a:hover, .mobile-menu a:hover, button:hover { text-decoration: none; }
@@ -209,15 +218,23 @@
       </button>
       <div class="flex flex-col gap-4 mt-12 text-sm font-medium">
         <a href="#hero" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Overview</a>
-        <a href="#what" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">How It Works</a>
         <a href="#results" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Results</a>
-        <a href="#use-cases" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Use Cases</a>
         <a href="#how-to-use" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">How to Use</a>
-        <a href="#landscape" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Landscape</a>
         <a href="#roadmap" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Roadmap</a>
-        <a href="#publications" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Research</a>
         <a href="#team" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Team</a>
-        <a href="#faq" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">FAQ</a>
+        <details class="mt-2">
+          <summary class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2 flex items-center gap-2">
+            More sections
+            <svg class="chevron w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content flex flex-col gap-4 pl-4 mt-2">
+            <a href="#what" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">How It Works</a>
+            <a href="#use-cases" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Use Cases</a>
+            <a href="#landscape" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Landscape</a>
+            <a href="#publications" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Research</a>
+            <a href="#faq" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">FAQ</a>
+          </div>
+        </details>
       </div>
     </div>
   </nav>
@@ -578,6 +595,9 @@
         </div>
         <p class="text-sm t-text mt-6 border-t t-card-border pt-6"><span class="t-text-heading font-bold">Takeaway:</span> ITS turns unreliable tool calling into dependable automation. The hardest scenarios see the biggest gains. <a href="https://github.com/Red-Hat-AI-Innovation-Team/its-openshift-mcp/blob/use_its_hub_v1/_results/RESULTS_gpt5_mini.md" target="_blank" rel="noopener" class="text-rh-red hover:underline">Full results &rarr;</a></p>
       </div>
+
+      <!-- Mobile scroll hint -->
+      <p class="fade-in md:hidden text-center text-sm t-text-secondary my-4">Scroll for more results ↓</p>
 
       <!-- FinanceBench Result -->
       <div class="fade-in result-card t-card-highlight border t-card-border rounded-lg p-8">
@@ -1470,6 +1490,11 @@ X-ITS-Algorithm: self_consistency</code>
     </div>
   </div>
 
+  <!-- Back-to-top button -->
+  <button id="back-to-top" class="back-to-top fixed bottom-6 right-6 w-12 h-12 rounded-full t-card border t-card-border shadow-lg z-50 flex items-center justify-center t-text-heading hover:border-rh-red transition-colors" aria-label="Scroll to top">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+  </button>
+
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
@@ -2241,6 +2266,17 @@ X-ITS-Algorithm: self_consistency</code>
         `
       }
     };
+
+    // Back-to-top button
+    const backToTop = document.getElementById('back-to-top');
+    const heroSection = document.getElementById('hero');
+    const backToTopObserver = new IntersectionObserver(([entry]) => {
+      backToTop.classList.toggle('visible', !entry.isIntersecting);
+    }, { threshold: 0 });
+    backToTopObserver.observe(heroSection);
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   </script>
 </body>
 </html>
