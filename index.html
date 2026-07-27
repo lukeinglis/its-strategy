@@ -432,7 +432,7 @@
 
       <!-- Algorithm Cards -->
       <h3 class="fade-in font-display font-bold text-xl t-text-heading mb-4">Algorithms</h3>
-      <p class="fade-in t-text-secondary text-base mb-8 max-w-3xl">ITS Hub provides multiple algorithms, each approaching the same problem from a different angle. Self-Consistency is the default starting point; the others excel in specific scenarios. All share the same interface, so switching between them is a one-line code change.</p>
+      <p class="fade-in t-text-secondary text-base mb-8 max-w-3xl">ITS Hub provides five algorithms, each approaching the same problem from a different angle. Adaptive Self-Consistency is a good starting point for cost-sensitive workloads; standard Self-Consistency for maximum accuracy; the others excel in specific scenarios. All share the same interface, so switching between them is a one-line code change.</p>
       <div class="grid sm:grid-cols-2 gap-4">
         <div class="fade-in t-card border t-card-border rounded-lg p-6 alg-clickable" data-alg="sc">
           <h4 class="font-display font-bold t-text-heading mb-2">Self-Consistency</h4>
@@ -514,6 +514,26 @@
           </svg>
           <p class="text-sm t-text mb-3">Probabilistic resampling to maintain diverse reasoning paths while focusing on promising directions. Includes Entropic PF and Particle Gibbs variants.</p>
           <p class="text-xs t-text-secondary">Best for: complex multi-step problems, tool calling</p>
+        </div>
+        <div class="fade-in t-card border t-card-border rounded-lg p-6 alg-clickable sm:col-span-2 sm:max-w-md sm:mx-auto" data-alg="asc">
+          <h4 class="font-display font-bold t-text-heading mb-2">Adaptive Self-Consistency <span class="text-xs px-2 py-0.5 rounded-full bg-rh-red text-white ml-2">NEW</span></h4>
+          <svg viewBox="0 0 280 70" class="w-full mb-3" style="max-height:70px">
+            <rect x="2" y="22" width="40" height="26" rx="5" fill="#EE0000"/><text x="22" y="39" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="Red Hat Text">Prompt</text>
+            <line x1="44" y1="35" x2="60" y2="35" stroke="#EE0000" stroke-width="1.5"/>
+            <rect x="62" y="20" width="26" height="14" rx="3" fill="#EE0000"/><text x="75" y="30" text-anchor="middle" fill="white" font-size="6" font-weight="bold" font-family="Red Hat Text">R1</text>
+            <rect x="62" y="36" width="26" height="14" rx="3" fill="#EE0000"/><text x="75" y="46" text-anchor="middle" fill="white" font-size="6" font-weight="bold" font-family="Red Hat Text">R2</text>
+            <text x="96" y="38" fill="#888" font-size="10" font-family="Red Hat Text">&rarr;</text>
+            <rect x="108" y="8" width="22" height="12" rx="2" fill="#EE0000"/><text x="119" y="17" text-anchor="middle" fill="white" font-size="5" font-weight="bold" font-family="Red Hat Text">R3</text>
+            <rect x="108" y="22" width="22" height="12" rx="2" fill="#EE0000"/><text x="119" y="31" text-anchor="middle" fill="white" font-size="5" font-weight="bold" font-family="Red Hat Text">R4</text>
+            <rect x="108" y="36" width="22" height="12" rx="2" fill="#EE0000"/><text x="119" y="45" text-anchor="middle" fill="white" font-size="5" font-weight="bold" font-family="Red Hat Text">R5</text>
+            <rect x="108" y="50" width="22" height="12" rx="2" fill="#555"/><text x="119" y="59" text-anchor="middle" fill="#bbb" font-size="5" font-family="Red Hat Text">R6</text>
+            <line x1="135" y1="35" x2="155" y2="35" stroke="#EE0000" stroke-width="1.5"/>
+            <rect x="158" y="18" width="50" height="34" rx="6" fill="#EE0000"/><text x="183" y="33" text-anchor="middle" fill="white" font-size="6" font-weight="bold" font-family="Red Hat Text">83%</text><text x="183" y="44" text-anchor="middle" fill="white" font-size="6" font-weight="bold" font-family="Red Hat Text">&ge; 75%</text>
+            <line x1="211" y1="35" x2="225" y2="35" stroke="#3E8635" stroke-width="1.5"/>
+            <rect x="228" y="18" width="48" height="34" rx="6" fill="none" stroke="#3E8635" stroke-width="1.5"/><text x="252" y="32" text-anchor="middle" fill="#3E8635" font-size="8" font-weight="bold" font-family="Red Hat Text">STOP</text><text x="252" y="46" text-anchor="middle" fill="#3E8635" font-size="12" font-weight="bold">&#x2713;</text>
+          </svg>
+          <p class="text-sm t-text mb-3">Starts with 2 samples, doubles each round. Stops early when supermajority agrees. Zero wasted compute.</p>
+          <p class="text-xs t-text-secondary">Best for: cost-sensitive workloads, high-volume inference</p>
         </div>
       </div>
     </div>
@@ -1407,7 +1427,7 @@ X-ITS-Algorithm: self_consistency</code>
             <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </summary>
           <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
-            <p>Self-Consistency for most tasks. It requires no reward model, works out of the box, and handles factual questions, classification, and tool calling well. Use Best-of-N when you have a reward model or LLM-as-judge and need quality scoring rather than majority agreement. See the algorithm cards in the <a href="#what" class="text-rh-red hover:underline">How It Works</a> section for detailed comparisons.</p>
+            <p>Adaptive Self-Consistency for cost-sensitive workloads &mdash; it starts small and stops early when the model agrees quickly. Standard Self-Consistency for maximum accuracy when budget is not a concern. Use Best-of-N when you have a reward model or LLM-as-judge. See the algorithm cards in the <a href="#what" class="text-rh-red hover:underline">How It Works</a> section for detailed comparisons.</p>
           </div>
         </details>
 
@@ -2261,6 +2281,117 @@ X-ITS-Algorithm: self_consistency</code>
             <g data-step="9" class="anim-node" style="transition-delay:0.3s">
               <text x="390" y="240" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9" font-style="italic">P3 scored .45 at Step 1 but survived stochastic resampling and won at Step 3 (.94).</text>
               <text x="390" y="255" text-anchor="middle" fill="#EE0000" font-family="Red Hat Text" font-size="9" font-style="italic" font-weight="bold">Beam Search would have pruned it deterministically.</text>
+            </g>
+          </svg>
+        `
+      },
+      asc: {
+        title: 'Adaptive Self-Consistency',
+        sidebar: `
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">How it works</h4>
+          <p class="text-sm t-text-secondary mb-4">Generate samples in exponentially growing batches (2→4→8→...). After each batch, check if a supermajority of responses agree. Stop early if threshold is met, otherwise double and continue until budget exhausted.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Best for</h4>
+          <ul class="text-sm t-text-secondary space-y-1 mb-4">
+            <li>Cost-sensitive workloads</li>
+            <li>High-volume inference</li>
+            <li>Budget-constrained environments</li>
+            <li>Same tasks as Self-Consistency</li>
+          </ul>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Key feature</h4>
+          <p class="text-sm t-text-secondary mb-4">Exponential doubling with early stopping means most queries resolve in 2-4 samples. Only hard queries use the full budget. Previous samples are kept across rounds — no work is wasted.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">When to use</h4>
+          <p class="text-sm t-text-secondary">When you want Self-Consistency behavior but need to minimize inference cost. The supermajority threshold (default 75%) controls the accuracy/cost trade-off.</p>
+        `,
+        steps: [
+          { text: 'Prompt comes in', duration: 1200 },
+          { text: 'Round 1: Generate 2 samples', duration: 1500 },
+          { text: 'Check agreement: 1 of 2 agree (50%). Below 75% threshold.', duration: 1500 },
+          { text: 'Round 2: Generate 4 more samples (total: 6)', duration: 1500 },
+          { text: 'Check agreement: 5 of 6 agree (83%). Above 75% threshold!', duration: 1500 },
+          { text: 'Early stop — return majority answer', duration: 1500 }
+        ],
+        svg: `
+          <svg viewBox="0 0 750 280" class="w-full" style="max-height: none;">
+            <!-- Step 0: Prompt -->
+            <g data-step="0" class="anim-node">
+              <rect x="15" y="115" width="90" height="45" rx="8" fill="#EE0000"/>
+              <text x="60" y="143" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="14" font-weight="bold">Prompt</text>
+            </g>
+
+            <!-- Step 1: Round 1 — 2 samples -->
+            <line data-step="1" class="anim-node" x1="110" y1="137" x2="155" y2="137" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="1" class="anim-node">
+              <text x="210" y="85" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="10">Round 1</text>
+              <rect x="170" y="100" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="210" y="121" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.15s">
+              <rect x="170" y="142" width="80" height="32" rx="6" fill="#555"/>
+              <text x="210" y="163" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">"37"</text>
+            </g>
+
+            <!-- Step 2: Threshold check — 50% < 75% in red -->
+            <g data-step="2" class="anim-node">
+              <rect x="265" y="108" width="100" height="58" rx="8" fill="none" stroke="#EE0000" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <text x="315" y="131" text-anchor="middle" fill="#EE0000" font-family="Red Hat Display" font-size="12" font-weight="bold">50%</text>
+              <text x="315" y="150" text-anchor="middle" fill="#EE0000" font-family="Red Hat Text" font-size="11">&lt; 75%</text>
+              <text x="315" y="165" text-anchor="middle" fill="#EE0000" font-family="Red Hat Text" font-size="9">&#x2717; continue</text>
+            </g>
+
+            <!-- Step 3: Round 2 — 4 more samples (total 6) -->
+            <line data-step="3" class="anim-node" x1="370" y1="137" x2="400" y2="137" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="3" class="anim-node">
+              <text x="460" y="30" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="10">Round 2 (+4 new)</text>
+            </g>
+            <!-- Kept from round 1 -->
+            <g data-step="3" class="anim-node">
+              <rect x="410" y="42" width="70" height="28" rx="5" fill="#EE0000" opacity="0.6"/>
+              <text x="445" y="60" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42" (R1)</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.05s">
+              <rect x="410" y="74" width="70" height="28" rx="5" fill="#555" opacity="0.6"/>
+              <text x="445" y="92" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="9">"37" (R1)</text>
+            </g>
+            <!-- 4 new samples -->
+            <g data-step="3" class="anim-node" style="transition-delay:0.1s">
+              <rect x="410" y="110" width="70" height="28" rx="5" fill="#EE0000"/>
+              <text x="445" y="128" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.15s">
+              <rect x="410" y="142" width="70" height="28" rx="5" fill="#EE0000"/>
+              <text x="445" y="160" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.2s">
+              <rect x="410" y="174" width="70" height="28" rx="5" fill="#EE0000"/>
+              <text x="445" y="192" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.25s">
+              <rect x="410" y="206" width="70" height="28" rx="5" fill="#EE0000"/>
+              <text x="445" y="224" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42"</text>
+            </g>
+
+            <!-- Step 4: Threshold check — 83% >= 75% in green -->
+            <g data-step="4" class="anim-node">
+              <rect x="500" y="108" width="100" height="58" rx="8" fill="none" stroke="#3E8635" stroke-width="2"/>
+              <text x="550" y="128" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="12" font-weight="bold">83%</text>
+              <text x="550" y="147" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="11">&ge; 75%</text>
+              <text x="550" y="162" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="9" font-weight="bold">&#x2713; stop!</text>
+            </g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.2s">
+              <text x="550" y="190" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">5 of 6 = "42"</text>
+            </g>
+
+            <!-- Step 5: Final output -->
+            <line data-step="5" class="anim-node" x1="605" y1="137" x2="640" y2="137" stroke="#3E8635" stroke-width="2"/>
+            <g data-step="5" class="anim-node">
+              <rect x="645" y="105" width="90" height="60" rx="10" fill="none" stroke="#3E8635" stroke-width="2"/>
+              <text x="690" y="132" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="16" font-weight="bold">"42"</text>
+              <text x="690" y="155" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="18" font-weight="bold">&#x2713;</text>
+            </g>
+
+            <!-- Cost savings note -->
+            <g data-step="5" class="anim-node" style="transition-delay:0.3s">
+              <text x="375" y="265" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9" font-style="italic">Used 6 samples instead of full budget. Easy queries resolve in 2-4 samples.</text>
             </g>
           </svg>
         `
