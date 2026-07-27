@@ -150,6 +150,35 @@
     /* Clickable card hint */
     .alg-clickable { cursor: pointer; }
     .alg-clickable:hover { border-color: #EE0000 !important; }
+
+    /* Accessibility: screen-reader only */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* Accessibility: focus indicators */
+    *:focus-visible {
+      outline: 2px solid #EE0000;
+      outline-offset: 2px;
+    }
+
+    /* Accessibility: reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { transition: none !important; opacity: 1 !important; transform: none !important; }
+      .anim-node, .anim-line { transition: none !important; animation: none !important; }
+      @keyframes pulse { 0%, 100% { box-shadow: none; } }
+    }
+
+    /* Mobile touch targets — 44px minimum per iOS HIG / WCAG */
+    @media (max-width: 768px) {
+      .theme-toggle, #menu-toggle, #menu-close { min-width: 44px; min-height: 44px; }
+    }
+
+    /* Back-to-top button */
+    .back-to-top { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+
+    /* Accessibility: link hover underlines */
+    a:hover { text-decoration: underline; }
+    nav a:hover, .mobile-menu a:hover, button:hover { text-decoration: none; }
   </style>
 </head>
 <body class="t-body t-text">
@@ -171,9 +200,10 @@
         <a href="#roadmap" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Roadmap</a>
         <a href="#publications" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Research</a>
         <a href="#team" class="nav-link t-text-secondary hover:t-text-heading transition-colors">Team</a>
+        <a href="#faq" class="nav-link t-text-secondary hover:t-text-heading transition-colors">FAQ</a>
       </div>
       <div class="flex items-center gap-3">
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode" aria-pressed="true">
           <svg class="icon-sun w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
           <svg class="icon-moon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
         </button>
@@ -188,14 +218,23 @@
       </button>
       <div class="flex flex-col gap-4 mt-12 text-sm font-medium">
         <a href="#hero" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Overview</a>
-        <a href="#what" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">How It Works</a>
         <a href="#results" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Results</a>
-        <a href="#use-cases" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Use Cases</a>
         <a href="#how-to-use" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">How to Use</a>
-        <a href="#landscape" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Landscape</a>
         <a href="#roadmap" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Roadmap</a>
-        <a href="#publications" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Research</a>
         <a href="#team" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Team</a>
+        <details class="mt-2">
+          <summary class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2 flex items-center gap-2">
+            More sections
+            <svg class="chevron w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content flex flex-col gap-4 pl-4 mt-2">
+            <a href="#what" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">How It Works</a>
+            <a href="#use-cases" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Use Cases</a>
+            <a href="#landscape" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Landscape</a>
+            <a href="#publications" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">Research</a>
+            <a href="#faq" class="mobile-link t-text-secondary hover:t-text-heading transition-colors py-2">FAQ</a>
+          </div>
+        </details>
       </div>
     </div>
   </nav>
@@ -393,7 +432,7 @@
 
       <!-- Algorithm Cards -->
       <h3 class="fade-in font-display font-bold text-xl t-text-heading mb-4">Algorithms</h3>
-      <p class="fade-in t-text-secondary text-base mb-8 max-w-3xl">ITS Hub provides multiple algorithms, each approaching the same problem from a different angle. Self-Consistency is the default starting point; the others excel in specific scenarios. All share the same interface, so switching between them is a one-line code change.</p>
+      <p class="fade-in t-text-secondary text-base mb-8 max-w-3xl">ITS Hub provides five algorithms, each approaching the same problem from a different angle. Adaptive Self-Consistency is a good starting point for cost-sensitive workloads; standard Self-Consistency for maximum accuracy; the others excel in specific scenarios. All share the same interface, so switching between them is a one-line code change.</p>
       <div class="grid sm:grid-cols-2 gap-4">
         <div class="fade-in t-card border t-card-border rounded-lg p-6 alg-clickable" data-alg="sc">
           <h4 class="font-display font-bold t-text-heading mb-2">Self-Consistency</h4>
@@ -476,6 +515,26 @@
           <p class="text-sm t-text mb-3">Probabilistic resampling to maintain diverse reasoning paths while focusing on promising directions. Includes Entropic PF and Particle Gibbs variants.</p>
           <p class="text-xs t-text-secondary">Best for: complex multi-step problems, tool calling</p>
         </div>
+        <div class="fade-in t-card border t-card-border rounded-lg p-6 alg-clickable" data-alg="asc">
+          <h4 class="font-display font-bold t-text-heading mb-2">Adaptive Self-Consistency <span class="text-xs px-2 py-0.5 rounded-full bg-rh-red text-white ml-2">NEW</span></h4>
+          <svg viewBox="0 0 280 70" class="w-full mb-3" style="max-height:70px">
+            <rect x="2" y="22" width="40" height="26" rx="5" fill="#EE0000"/><text x="22" y="39" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="Red Hat Text">Prompt</text>
+            <line x1="44" y1="35" x2="60" y2="35" stroke="#EE0000" stroke-width="1.5"/>
+            <rect x="62" y="20" width="26" height="14" rx="3" fill="#EE0000"/><text x="75" y="30" text-anchor="middle" fill="white" font-size="6" font-weight="bold" font-family="Red Hat Text">R1</text>
+            <rect x="62" y="36" width="26" height="14" rx="3" fill="#EE0000"/><text x="75" y="46" text-anchor="middle" fill="white" font-size="6" font-weight="bold" font-family="Red Hat Text">R2</text>
+            <text x="96" y="38" fill="#888" font-size="10" font-family="Red Hat Text">&rarr;</text>
+            <rect x="108" y="8" width="22" height="12" rx="2" fill="#EE0000"/><text x="119" y="17" text-anchor="middle" fill="white" font-size="5" font-weight="bold" font-family="Red Hat Text">R3</text>
+            <rect x="108" y="22" width="22" height="12" rx="2" fill="#EE0000"/><text x="119" y="31" text-anchor="middle" fill="white" font-size="5" font-weight="bold" font-family="Red Hat Text">R4</text>
+            <rect x="108" y="36" width="22" height="12" rx="2" fill="#EE0000"/><text x="119" y="45" text-anchor="middle" fill="white" font-size="5" font-weight="bold" font-family="Red Hat Text">R5</text>
+            <rect x="108" y="50" width="22" height="12" rx="2" fill="#555"/><text x="119" y="59" text-anchor="middle" fill="#bbb" font-size="5" font-family="Red Hat Text">R6</text>
+            <line x1="135" y1="35" x2="155" y2="35" stroke="#EE0000" stroke-width="1.5"/>
+            <rect x="158" y="18" width="50" height="34" rx="6" fill="#EE0000"/><text x="183" y="33" text-anchor="middle" fill="white" font-size="6" font-weight="bold" font-family="Red Hat Text">83%</text><text x="183" y="44" text-anchor="middle" fill="white" font-size="6" font-weight="bold" font-family="Red Hat Text">&ge; 75%</text>
+            <line x1="211" y1="35" x2="225" y2="35" stroke="#3E8635" stroke-width="1.5"/>
+            <rect x="228" y="18" width="48" height="34" rx="6" fill="none" stroke="#3E8635" stroke-width="1.5"/><text x="252" y="32" text-anchor="middle" fill="#3E8635" font-size="8" font-weight="bold" font-family="Red Hat Text">STOP</text><text x="252" y="46" text-anchor="middle" fill="#3E8635" font-size="12" font-weight="bold">&#x2713;</text>
+          </svg>
+          <p class="text-sm t-text mb-3">Starts with 2 samples, doubles each round. Stops early when supermajority agrees. Zero wasted compute.</p>
+          <p class="text-xs t-text-secondary">Best for: cost-sensitive workloads, high-volume inference</p>
+        </div>
       </div>
     </div>
   </section>
@@ -503,52 +562,52 @@
           </div>
           <div>
             <div class="space-y-3">
-              <div class="t-code-bg rounded-lg p-4">
+              <div class="t-code-bg rounded-lg p-4" role="img" aria-label="OOM / CrashLoopBackOff accuracy improved from 70% to 100%">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-sm t-text-heading">OOM / CrashLoopBackOff</span>
                   <span class="text-rh-green font-bold text-sm">70% &rarr; 100%</span>
                 </div>
                 <div class="w-full t-card rounded-full h-2 mb-1">
-                  <div class="t-bar-dim h-2 rounded-full" style="width: 70%"></div>
+                  <div class="t-bar-dim h-2 rounded-full" style="width: 70%"><span class="sr-only">Baseline: 70%</span></div>
                 </div>
                 <div class="w-full t-card rounded-full h-2">
-                  <div class="bg-rh-green h-2 rounded-full" style="width: 100%"></div>
+                  <div class="bg-rh-green h-2 rounded-full" style="width: 100%"><span class="sr-only">With ITS: 100%</span></div>
                 </div>
               </div>
-              <div class="t-code-bg rounded-lg p-4">
+              <div class="t-code-bg rounded-lg p-4" role="img" aria-label="Network Policy Mismatch accuracy improved from 51% to 85%">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-sm t-text-heading">Network Policy Mismatch</span>
                   <span class="text-rh-green font-bold text-sm">51% &rarr; 85%</span>
                 </div>
                 <div class="w-full t-card rounded-full h-2 mb-1">
-                  <div class="t-bar-dim h-2 rounded-full" style="width: 51%"></div>
+                  <div class="t-bar-dim h-2 rounded-full" style="width: 51%"><span class="sr-only">Baseline: 51%</span></div>
                 </div>
                 <div class="w-full t-card rounded-full h-2">
-                  <div class="bg-rh-green h-2 rounded-full" style="width: 85%"></div>
+                  <div class="bg-rh-green h-2 rounded-full" style="width: 85%"><span class="sr-only">With ITS: 85%</span></div>
                 </div>
               </div>
-              <div class="t-code-bg rounded-lg p-4">
+              <div class="t-code-bg rounded-lg p-4" role="img" aria-label="Scheduled Outage Detection accuracy improved from 10% to 90%">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-sm t-text-heading">Scheduled Outage Detection</span>
                   <span class="text-rh-green font-bold text-sm">10% &rarr; 90%</span>
                 </div>
                 <div class="w-full t-card rounded-full h-2 mb-1">
-                  <div class="t-bar-dim h-2 rounded-full" style="width: 10%"></div>
+                  <div class="t-bar-dim h-2 rounded-full" style="width: 10%"><span class="sr-only">Baseline: 10%</span></div>
                 </div>
                 <div class="w-full t-card rounded-full h-2">
-                  <div class="bg-rh-green h-2 rounded-full" style="width: 90%"></div>
+                  <div class="bg-rh-green h-2 rounded-full" style="width: 90%"><span class="sr-only">With ITS: 90%</span></div>
                 </div>
               </div>
-              <div class="t-code-bg rounded-lg p-4">
+              <div class="t-code-bg rounded-lg p-4" role="img" aria-label="Periodic Failure Window accuracy improved from 0% to 100%">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-sm t-text-heading">Periodic Failure Window</span>
                   <span class="text-rh-green font-bold text-sm">0% &rarr; 100%</span>
                 </div>
                 <div class="w-full t-card rounded-full h-2 mb-1">
-                  <div class="t-bar-dim h-2 rounded-full" style="width: 2%"></div>
+                  <div class="t-bar-dim h-2 rounded-full" style="width: 2%"><span class="sr-only">Baseline: 0%</span></div>
                 </div>
                 <div class="w-full t-card rounded-full h-2">
-                  <div class="bg-rh-green h-2 rounded-full" style="width: 100%"></div>
+                  <div class="bg-rh-green h-2 rounded-full" style="width: 100%"><span class="sr-only">With ITS: 100%</span></div>
                 </div>
               </div>
             </div>
@@ -556,6 +615,9 @@
         </div>
         <p class="text-sm t-text mt-6 border-t t-card-border pt-6"><span class="t-text-heading font-bold">Takeaway:</span> ITS turns unreliable tool calling into dependable automation. The hardest scenarios see the biggest gains. <a href="https://github.com/Red-Hat-AI-Innovation-Team/its-openshift-mcp/blob/use_its_hub_v1/_results/RESULTS_gpt5_mini.md" target="_blank" rel="noopener" class="text-rh-red hover:underline">Full results &rarr;</a></p>
       </div>
+
+      <!-- Mobile scroll hint -->
+      <p class="fade-in md:hidden text-center text-sm t-text-secondary my-4">Scroll for more results ↓</p>
 
       <!-- FinanceBench Result -->
       <div class="fade-in result-card t-card-highlight border t-card-border rounded-lg p-8">
@@ -646,40 +708,40 @@
             </ul>
           </div>
           <div class="space-y-4">
-            <div class="t-code-bg rounded-lg p-4">
+            <div class="t-code-bg rounded-lg p-4" role="img" aria-label="HealthBench-Hard healthcare score improved by 8.7%">
               <div class="flex justify-between items-center mb-2">
                 <span class="text-sm t-text-heading">HealthBench-Hard (healthcare)</span>
                 <span class="text-rh-green font-bold text-sm">+8.7%</span>
               </div>
               <div class="w-full t-card rounded-full h-2 mb-1">
-                <div class="t-bar-dim h-2 rounded-full" style="width: 60%"></div>
+                <div class="t-bar-dim h-2 rounded-full" style="width: 60%"><span class="sr-only">Baseline: 60%</span></div>
               </div>
               <div class="w-full t-card rounded-full h-2">
-                <div class="bg-rh-green h-2 rounded-full" style="width: 68%"></div>
+                <div class="bg-rh-green h-2 rounded-full" style="width: 68%"><span class="sr-only">With ITS: 68%</span></div>
               </div>
             </div>
-            <div class="t-code-bg rounded-lg p-4">
+            <div class="t-code-bg rounded-lg p-4" role="img" aria-label="AIME-2026 math score improved by 9.2 percentage points">
               <div class="flex justify-between items-center mb-2">
                 <span class="text-sm t-text-heading">AIME-2026 (math)</span>
                 <span class="text-rh-green font-bold text-sm">+9.2pp</span>
               </div>
               <div class="w-full t-card rounded-full h-2 mb-1">
-                <div class="t-bar-dim h-2 rounded-full" style="width: 14%"></div>
+                <div class="t-bar-dim h-2 rounded-full" style="width: 14%"><span class="sr-only">Baseline: 14%</span></div>
               </div>
               <div class="w-full t-card rounded-full h-2">
-                <div class="bg-rh-green h-2 rounded-full" style="width: 37%"></div>
+                <div class="bg-rh-green h-2 rounded-full" style="width: 37%"><span class="sr-only">With ITS: 37%</span></div>
               </div>
             </div>
-            <div class="t-code-bg rounded-lg p-4">
+            <div class="t-code-bg rounded-lg p-4" role="img" aria-label="Fusion360 engineering median IoU improved by 18.1%">
               <div class="flex justify-between items-center mb-2">
                 <span class="text-sm t-text-heading">Fusion360 (engineering)</span>
                 <span class="text-rh-green font-bold text-sm">+18.1% median IoU</span>
               </div>
               <div class="w-full t-card rounded-full h-2 mb-1">
-                <div class="t-bar-dim h-2 rounded-full" style="width: 38%"></div>
+                <div class="t-bar-dim h-2 rounded-full" style="width: 38%"><span class="sr-only">Baseline: 38%</span></div>
               </div>
               <div class="w-full t-card rounded-full h-2">
-                <div class="bg-rh-green h-2 rounded-full" style="width: 48%"></div>
+                <div class="bg-rh-green h-2 rounded-full" style="width: 48%"><span class="sr-only">With ITS: 48%</span></div>
               </div>
             </div>
           </div>
@@ -905,7 +967,67 @@ X-ITS-Algorithm: self_consistency</code>
   <section id="landscape" class="py-20 md:py-28 border-t t-card-border">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="fade-in font-display font-bold text-3xl md:text-4xl t-text-heading mb-4">Competitive Landscape</h2>
-      <p class="fade-in t-text-secondary text-lg mb-16 max-w-2xl">Every major provider now ships thinking budget controls. The market has validated inference-time compute scaling. Red Hat's differentiation: ITS as infrastructure, not as a model feature.</p>
+      <p class="fade-in t-text-secondary text-lg mb-8 max-w-2xl">Every major provider now ships thinking budget controls. The market has validated inference-time compute scaling. Red Hat's differentiation: ITS as infrastructure, not as a model feature.</p>
+
+      <p class="fade-in t-text-secondary text-lg mb-8 max-w-3xl">The inference-time scaling market exploded in 2025&ndash;2026. OpenAI, Google, and Anthropic all shipped API-level thinking budget controls. Inference costs for frontier providers now exceed training costs &mdash; OpenAI&rsquo;s inference spend hit $14.1B in 2026, Anthropic&rsquo;s annualized compute costs run at $4.5B. The shift from static single-shot inference to dynamic compute allocation is production reality. Red Hat&rsquo;s differentiation is not whether to do ITS, but how: infrastructure-level, not model-level.</p>
+
+      <!-- Comparison Table -->
+      <div class="fade-in overflow-x-auto mb-16">
+        <table class="w-full border-collapse t-card border t-card-border rounded-lg text-sm" aria-label="Competitive comparison of inference-time scaling approaches">
+          <thead>
+            <tr class="border-b t-card-border">
+              <th class="text-left p-4 font-display font-bold t-text-heading">Feature</th>
+              <th class="text-center p-4 font-display font-bold text-rh-red t-card-highlight border-x t-card-border">Red Hat ITS</th>
+              <th class="text-center p-4 font-display font-bold t-text-heading">OpenAI o1</th>
+              <th class="text-center p-4 font-display font-bold t-text-heading">Google Gemini 2.5</th>
+              <th class="text-center p-4 font-display font-bold t-text-heading">Anthropic Claude</th>
+              <th class="text-center p-4 font-display font-bold t-text-heading">DeepSeek R1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b t-card-border">
+              <td class="p-4 t-text-heading font-medium">Model-agnostic</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> Any model</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> o1 only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Gemini only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Claude only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> R1 only</td>
+            </tr>
+            <tr class="border-b t-card-border">
+              <td class="p-4 t-text-heading font-medium">On-prem / air-gapped</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> Yes</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Cloud only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Cloud only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Cloud only</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Cloud only</td>
+            </tr>
+            <tr class="border-b t-card-border">
+              <td class="p-4 t-text-heading font-medium">Open source</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> Apache 2.0</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Proprietary</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Proprietary</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Proprietary</td>
+              <td class="text-center p-4 t-text-secondary"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> MIT</td>
+            </tr>
+            <tr class="border-b t-card-border">
+              <td class="p-4 t-text-heading font-medium">Infrastructure-level</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> Gateway</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Model feature</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Model feature</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Model feature</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Model feature</td>
+            </tr>
+            <tr>
+              <td class="p-4 t-text-heading font-medium">Algorithm choice</td>
+              <td class="text-center p-4 t-card-highlight border-x t-card-border"><span class="text-rh-green font-bold" aria-label="Yes">&#x2705;</span> 8 algorithms</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Opaque</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Opaque</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Opaque</td>
+              <td class="text-center p-4 t-text-secondary"><span aria-label="No">&#x274C;</span> Opaque</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <!-- Differentiators -->
       <h3 class="fade-in font-display font-bold text-xl t-text-heading mb-6">Red Hat Differentiators</h3>
@@ -973,26 +1095,26 @@ X-ITS-Algorithm: self_consistency</code>
           </div>
 
           <!-- 3.4 -->
-          <div class="t-card border border-rh-blue/30 rounded-lg p-6">
+          <div class="t-card border t-card-border rounded-lg p-6">
             <div class="flex items-center gap-3 mb-4">
-              <span class="text-xs px-3 py-1 rounded-full status-in-progress font-bold">3.4</span>
+              <span class="text-xs px-3 py-1 rounded-full status-shipped font-bold">3.4</span>
               <span class="text-sm t-text-secondary">May 2026</span>
             </div>
-            <div class="grid sm:grid-cols-2 gap-3 pl-4 border-l-2 border-rh-blue">
-              <div class="timeline-node in-progress pl-6"><p class="text-sm t-text-heading">its-hub V2 refactored repo (v1.0.0)</p></div>
-              <div class="timeline-node planned pl-6"><p class="text-sm t-text-heading">Reward-model algorithms in gateway</p></div>
+            <div class="grid sm:grid-cols-2 gap-3 pl-4 border-l-2 border-rh-green">
+              <div class="timeline-node shipped pl-6"><p class="text-sm t-text-heading">its-hub V2 refactored repo (v1.0.0)</p></div>
+              <div class="timeline-node shipped pl-6"><p class="text-sm t-text-heading">Reward-model algorithms in gateway</p></div>
             </div>
           </div>
 
           <!-- 3.5 -->
-          <div class="t-card border t-card-border rounded-lg p-6">
+          <div class="t-card border border-rh-blue/30 rounded-lg p-6">
             <div class="flex items-center gap-3 mb-4">
-              <span class="text-xs px-3 py-1 rounded-full status-planned font-bold">3.5</span>
-              <span class="text-sm t-text-secondary">Q3 2026 (code freeze: Jul 24)</span>
+              <span class="text-xs px-3 py-1 rounded-full status-in-progress font-bold">3.5</span>
+              <span class="text-sm t-text-secondary">Q3 2026</span>
             </div>
-            <div class="grid sm:grid-cols-2 gap-3 pl-4 border-l-2 border-gray-600">
-              <div class="timeline-node planned pl-6"><p class="text-sm t-text-heading">ITS Envoy extension</p></div>
-              <div class="timeline-node planned pl-6"><p class="text-sm t-text-heading">ITS to improve tool calling</p></div>
+            <div class="grid sm:grid-cols-2 gap-3 pl-4 border-l-2 border-rh-blue">
+              <div class="timeline-node in-progress pl-6"><p class="text-sm t-text-heading">ITS Envoy extension</p></div>
+              <div class="timeline-node in-progress pl-6"><p class="text-sm t-text-heading">ITS to improve tool calling</p></div>
             </div>
           </div>
 
@@ -1050,6 +1172,13 @@ X-ITS-Algorithm: self_consistency</code>
       <div>
       <h3 class="fade-in font-display font-bold text-xl t-text-heading mb-6">Publications</h3>
       <div class="fade-in space-y-3">
+        <a href="https://arxiv.org/abs/2606.08854" target="_blank" rel="noopener" class="flex items-center gap-3 t-card border t-card-border rounded-lg p-4 hover:border-rh-red transition-colors">
+          <svg class="w-5 h-5 t-text-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <div>
+            <p class="t-text-heading font-bold text-sm">sGPO: Trading Inference FLOPs for Training Efficiency in RLVR</p>
+            <p class="text-xs t-text-secondary">Sudalairaj, K. Xu, Srivastava, Giannone · Jun 2026 · <span class="t-text-secondary font-bold">Under Review</span></p>
+          </div>
+        </a>
         <a href="https://arxiv.org/abs/2603.27448" target="_blank" rel="noopener" class="flex items-center gap-3 t-card border t-card-border rounded-lg p-4 hover:border-rh-red transition-colors">
           <svg class="w-5 h-5 t-text-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
           <div>
@@ -1067,7 +1196,7 @@ X-ITS-Algorithm: self_consistency</code>
         <a href="https://arxiv.org/abs/2507.08390" target="_blank" rel="noopener" class="flex items-center gap-3 t-card border t-card-border rounded-lg p-4 hover:border-rh-red transition-colors">
           <svg class="w-5 h-5 t-text-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
           <div>
-            <p class="t-text-heading font-bold text-sm">Inference-Time Scaling of Diffusion Language Models via Trajectory Refinement</p>
+            <p class="t-text-heading font-bold text-sm">Inference-Time Scaling of Diffusion Language Models with Particle Gibbs Sampling</p>
             <p class="text-xs t-text-secondary">Dang, Han, M. Xu, K. Xu, Srivastava, Ermon · Jul 2025 · <span class="t-text-secondary font-bold">Under Review</span></p>
           </div>
         </a>
@@ -1275,6 +1404,66 @@ X-ITS-Algorithm: self_consistency</code>
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section id="faq" class="py-20 md:py-28 border-t t-card-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="fade-in font-display font-bold text-3xl md:text-4xl t-text-heading mb-4">Frequently Asked Questions</h2>
+      <p class="fade-in t-text-secondary text-lg mb-16 max-w-2xl">Common questions about inference-time scaling and how to adopt it.</p>
+
+      <div class="fade-in space-y-4 max-w-3xl">
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">What&rsquo;s the difference between ITS and model fine-tuning?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>ITS requires $0 retraining and works with any model. You get better answers by generating and evaluating multiple responses at inference time &mdash; no weight changes, no training data, no GPU hours for fine-tuning. Fine-tuning is model-specific, expensive to iterate on, and locks you into a single model version. ITS is complementary: you can fine-tune a model and then apply ITS on top for additional gains.</p>
+          </div>
+        </details>
+
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">Which algorithm should I start with?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>Adaptive Self-Consistency for cost-sensitive workloads &mdash; it starts small and stops early when the model agrees quickly. Standard Self-Consistency for maximum accuracy when budget is not a concern. Use Best-of-N when you have a reward model or LLM-as-judge. See the algorithm cards in the <a href="#what" class="text-rh-red hover:underline">How It Works</a> section for detailed comparisons.</p>
+          </div>
+        </details>
+
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">What&rsquo;s the compute overhead?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>N=8 means 8x inference compute, but 0x training compute. The trade is often favorable for high-stakes decisions where a wrong answer costs more than a slow one. Candidates are generated in parallel, so wall-clock latency scales sub-linearly. The compute budget is a runtime configuration choice &mdash; you can set N=2 for low-stakes queries and N=16 for critical ones.</p>
+          </div>
+        </details>
+
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">Can ITS work with our existing model endpoint?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>Yes, if it&rsquo;s OpenAI-compatible. ITS is infrastructure-level, not model-level &mdash; it sits between your application and any model server that speaks the OpenAI Chat Completion API. That includes vLLM, TGI, OpenAI, and any compatible endpoint. No model changes or special model versions required.</p>
+          </div>
+        </details>
+
+        <details class="t-card border t-card-border rounded-lg p-6">
+          <summary class="flex items-center justify-between">
+            <h3 class="font-display font-bold t-text-heading">How do we get started?</h3>
+            <svg class="chevron w-5 h-5 t-text-secondary flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </summary>
+          <div class="detail-content mt-4 t-text-secondary text-sm leading-relaxed">
+            <p>Two paths: install <code class="t-code-bg rounded px-1.5 py-0.5 text-rh-green">its-hub</code> via pip for the Python SDK, or deploy the upstream gateway for transparent HTTP-level scaling. Both are available today. See the <a href="#how-to-use" class="text-rh-red hover:underline">How to Use</a> section for quick-start code, architecture diagrams, and deployment options.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="border-t t-card-border py-8">
     <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -1282,12 +1471,12 @@ X-ITS-Algorithm: self_consistency</code>
         <img src="assets/rh-ai-logo-white.png" alt="Red Hat AI" class="h-6 logo-dark">
         <img src="assets/rh-ai-logo-black.png" alt="Red Hat AI" class="h-6 logo-light">
       </div>
-      <p class="t-text-secondary text-sm">Last updated: May 2026</p>
+      <p class="t-text-secondary text-sm">Last updated: July 2026</p>
     </div>
   </footer>
 
   <!-- Algorithm Modal -->
-  <div id="alg-modal-overlay" class="alg-modal-overlay">
+  <div id="alg-modal-overlay" class="alg-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="alg-modal-title">
     <div class="alg-modal">
       <div class="alg-modal-header">
         <h3 id="alg-modal-title" class="font-display font-bold text-xl t-text-heading"></h3>
@@ -1302,16 +1491,29 @@ X-ITS-Algorithm: self_consistency</code>
         <div class="alg-modal-sidebar" id="alg-modal-sidebar">
         </div>
       </div>
-      <div class="alg-modal-footer">
-        <button id="alg-btn-prev" class="t-text-secondary hover:t-text-heading text-sm font-bold px-4 py-2 rounded border t-card-border transition-colors" disabled>Prev</button>
-        <p id="alg-step-text" class="anim-step-text text-base t-text text-center flex-1 px-4 font-medium"></p>
-        <div class="flex items-center gap-3">
-          <span id="alg-step-num" class="text-xs t-text-secondary"></span>
-          <button id="alg-btn-next" class="text-sm font-bold px-4 py-2 rounded bg-rh-red hover:bg-rh-red-dark text-white transition-colors">Next</button>
+      <div class="alg-modal-footer" style="flex-direction: column; gap: 12px;">
+        <div id="alg-progress-bar" style="width: 100%; height: 3px; border-radius: 3px; background: var(--bar-dim); overflow: hidden;">
+          <div id="alg-progress-fill" style="height: 100%; border-radius: 3px; background: #EE0000; width: 0%; transition: width 0.3s ease;"></div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+          <div class="flex items-center gap-2">
+            <button id="alg-btn-pause" class="t-text-secondary hover:t-text-heading text-sm font-bold px-3 py-2 rounded border t-card-border transition-colors" aria-label="Pause animation" style="min-width: 40px;">| |</button>
+            <button id="alg-btn-prev" class="t-text-secondary hover:t-text-heading text-sm font-bold px-4 py-2 rounded border t-card-border transition-colors" disabled>Prev</button>
+          </div>
+          <p id="alg-step-text" class="anim-step-text text-base t-text text-center flex-1 px-4 font-medium"></p>
+          <div class="flex items-center gap-3">
+            <span id="alg-step-num" class="text-xs t-text-secondary"></span>
+            <button id="alg-btn-next" class="text-sm font-bold px-4 py-2 rounded bg-rh-red hover:bg-rh-red-dark text-white transition-colors">Next</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Back-to-top button -->
+  <button id="back-to-top" class="back-to-top fixed bottom-6 right-6 w-12 h-12 rounded-full t-card border t-card-border shadow-lg z-50 flex items-center justify-center t-text-heading hover:border-rh-red transition-colors" aria-label="Scroll to top">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+  </button>
 
   <script>
     const observer = new IntersectionObserver((entries) => {
@@ -1344,11 +1546,16 @@ X-ITS-Algorithm: self_consistency</code>
     const themeToggle = document.getElementById('theme-toggle');
     const root = document.documentElement;
     const stored = localStorage.getItem('theme');
-    if (stored === 'light') root.classList.remove('dark');
+    if (stored === 'light') {
+      root.classList.remove('dark');
+      themeToggle.setAttribute('aria-pressed', 'false');
+    }
 
     themeToggle.addEventListener('click', () => {
       root.classList.toggle('dark');
-      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      const isDark = root.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
     });
 
     // Algorithm modal system
@@ -1359,12 +1566,32 @@ X-ITS-Algorithm: self_consistency</code>
     const algStepNum = document.getElementById('alg-step-num');
     const algBtnPrev = document.getElementById('alg-btn-prev');
     const algBtnNext = document.getElementById('alg-btn-next');
+    const algBtnPause = document.getElementById('alg-btn-pause');
+    const algProgressFill = document.getElementById('alg-progress-fill');
 
     let algCurrentStep = 0;
     let algSteps = [];
     let algAnimTimer = null;
+    let algPaused = false;
 
     const algSidebar = document.getElementById('alg-modal-sidebar');
+
+    function updateAlgProgress() {
+      const pct = algSteps.length > 1 ? ((algCurrentStep + 1) / algSteps.length) * 100 : 100;
+      algProgressFill.style.width = pct + '%';
+    }
+
+    function updatePauseBtn() {
+      algBtnPause.textContent = algPaused ? '▶' : '| |';
+      algBtnPause.setAttribute('aria-label', algPaused ? 'Resume animation' : 'Pause animation');
+    }
+
+    function addColorBlindStrokes() {
+      algSvg.querySelectorAll('rect[fill="#EE0000"], circle[fill="#EE0000"]').forEach(el => {
+        el.setAttribute('stroke', 'white');
+        el.setAttribute('stroke-width', '2');
+      });
+    }
 
     function openAlgModal(alg) {
       const config = algConfigs[alg];
@@ -1374,7 +1601,10 @@ X-ITS-Algorithm: self_consistency</code>
       algSidebar.innerHTML = config.sidebar || '';
       algSteps = config.steps;
       algCurrentStep = 0;
+      algPaused = false;
+      updatePauseBtn();
       showAlgStep(0);
+      addColorBlindStrokes();
       algOverlay.classList.add('open');
       document.body.style.overflow = 'hidden';
       autoPlayAlg();
@@ -1384,6 +1614,8 @@ X-ITS-Algorithm: self_consistency</code>
       algOverlay.classList.remove('open');
       document.body.style.overflow = '';
       clearTimeout(algAnimTimer);
+      algPaused = false;
+      updatePauseBtn();
     }
 
     function showAlgStep(idx) {
@@ -1392,7 +1624,7 @@ X-ITS-Algorithm: self_consistency</code>
       algStepNum.textContent = (idx + 1) + ' / ' + algSteps.length;
       algBtnPrev.disabled = idx === 0;
       algBtnNext.textContent = idx === algSteps.length - 1 ? 'Replay' : 'Next';
-      // Show/hide SVG elements for each step
+      updateAlgProgress();
       algSvg.querySelectorAll('[data-step]').forEach(el => {
         const step = parseInt(el.dataset.step);
         if (step <= idx) {
@@ -1401,16 +1633,28 @@ X-ITS-Algorithm: self_consistency</code>
           el.classList.remove('show');
         }
       });
+      addColorBlindStrokes();
     }
 
     function autoPlayAlg() {
       clearTimeout(algAnimTimer);
+      if (algPaused) return;
       if (algCurrentStep < algSteps.length - 1) {
         algAnimTimer = setTimeout(() => {
           algCurrentStep++;
           showAlgStep(algCurrentStep);
           autoPlayAlg();
         }, algSteps[algCurrentStep].duration || 1500);
+      }
+    }
+
+    function toggleAlgPause() {
+      algPaused = !algPaused;
+      updatePauseBtn();
+      if (!algPaused) {
+        autoPlayAlg();
+      } else {
+        clearTimeout(algAnimTimer);
       }
     }
 
@@ -1421,9 +1665,13 @@ X-ITS-Algorithm: self_consistency</code>
     document.getElementById('alg-modal-close').addEventListener('click', closeAlgModal);
     algOverlay.addEventListener('click', (e) => { if (e.target === algOverlay) closeAlgModal(); });
 
+    algBtnPause.addEventListener('click', toggleAlgPause);
+
     algBtnNext.addEventListener('click', () => {
       clearTimeout(algAnimTimer);
       if (algCurrentStep >= algSteps.length - 1) {
+        algPaused = false;
+        updatePauseBtn();
         showAlgStep(0);
         autoPlayAlg();
       } else {
@@ -1435,6 +1683,61 @@ X-ITS-Algorithm: self_consistency</code>
       clearTimeout(algAnimTimer);
       if (algCurrentStep > 0) { algCurrentStep--; showAlgStep(algCurrentStep); }
     });
+
+    // Keyboard shortcuts (active when modal is open)
+    document.addEventListener('keydown', (e) => {
+      if (!algOverlay.classList.contains('open')) return;
+      switch (e.key) {
+        case 'ArrowLeft':
+          e.preventDefault();
+          clearTimeout(algAnimTimer);
+          if (algCurrentStep > 0) { algCurrentStep--; showAlgStep(algCurrentStep); }
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          clearTimeout(algAnimTimer);
+          if (algCurrentStep >= algSteps.length - 1) {
+            algPaused = false;
+            updatePauseBtn();
+            showAlgStep(0);
+            autoPlayAlg();
+          } else {
+            algCurrentStep++;
+            showAlgStep(algCurrentStep);
+          }
+          break;
+        case ' ':
+          e.preventDefault();
+          toggleAlgPause();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          closeAlgModal();
+          break;
+      }
+    });
+
+    // Mobile swipe support on SVG container
+    (function() {
+      let touchStartX = null;
+      algSvg.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      algSvg.addEventListener('touchend', (e) => {
+        if (touchStartX === null) return;
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+        if (Math.abs(deltaX) < 50) return;
+        clearTimeout(algAnimTimer);
+        if (deltaX < -50 && algCurrentStep < algSteps.length - 1) {
+          algCurrentStep++;
+          showAlgStep(algCurrentStep);
+        } else if (deltaX > 50 && algCurrentStep > 0) {
+          algCurrentStep--;
+          showAlgStep(algCurrentStep);
+        }
+      }, { passive: true });
+    })();
 
     // Algorithm configs
     const algConfigs = {
@@ -1981,8 +2284,130 @@ X-ITS-Algorithm: self_consistency</code>
             </g>
           </svg>
         `
+      },
+      asc: {
+        title: 'Adaptive Self-Consistency',
+        sidebar: `
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">How it works</h4>
+          <p class="text-sm t-text-secondary mb-4">Generate samples in exponentially growing batches (2→4→8→...). After each batch, check if a supermajority of responses agree. Stop early if threshold is met, otherwise double and continue until budget exhausted.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Best for</h4>
+          <ul class="text-sm t-text-secondary space-y-1 mb-4">
+            <li>Cost-sensitive workloads</li>
+            <li>High-volume inference</li>
+            <li>Budget-constrained environments</li>
+            <li>Same tasks as Self-Consistency</li>
+          </ul>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">Key feature</h4>
+          <p class="text-sm t-text-secondary mb-4">Exponential doubling with early stopping means most queries resolve in 2-4 samples. Only hard queries use the full budget. Previous samples are kept across rounds — no work is wasted.</p>
+          <h4 class="font-display font-bold t-text-heading text-sm mb-3">When to use</h4>
+          <p class="text-sm t-text-secondary">When you want Self-Consistency behavior but need to minimize inference cost. The supermajority threshold (default 75%) controls the accuracy/cost trade-off.</p>
+        `,
+        steps: [
+          { text: 'Prompt comes in', duration: 1200 },
+          { text: 'Round 1: Generate 2 samples', duration: 1500 },
+          { text: 'Check agreement: 1 of 2 agree (50%). Below 75% threshold.', duration: 1500 },
+          { text: 'Round 2: Generate 4 more samples (total: 6)', duration: 1500 },
+          { text: 'Check agreement: 5 of 6 agree (83%). Above 75% threshold!', duration: 1500 },
+          { text: 'Early stop — return majority answer', duration: 1500 }
+        ],
+        svg: `
+          <svg viewBox="0 0 750 280" class="w-full" style="max-height: none;">
+            <!-- Step 0: Prompt -->
+            <g data-step="0" class="anim-node">
+              <rect x="15" y="115" width="90" height="45" rx="8" fill="#EE0000"/>
+              <text x="60" y="143" text-anchor="middle" fill="white" font-family="Red Hat Display" font-size="14" font-weight="bold">Prompt</text>
+            </g>
+
+            <!-- Step 1: Round 1 — 2 samples -->
+            <line data-step="1" class="anim-node" x1="110" y1="137" x2="155" y2="137" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="1" class="anim-node">
+              <text x="210" y="85" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="10">Round 1</text>
+              <rect x="170" y="100" width="80" height="32" rx="6" fill="#EE0000"/>
+              <text x="210" y="121" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="11" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="1" class="anim-node" style="transition-delay:0.15s">
+              <rect x="170" y="142" width="80" height="32" rx="6" fill="#555"/>
+              <text x="210" y="163" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="11" font-weight="bold">"37"</text>
+            </g>
+
+            <!-- Step 2: Threshold check — 50% < 75% in red -->
+            <g data-step="2" class="anim-node">
+              <rect x="265" y="108" width="100" height="58" rx="8" fill="none" stroke="#EE0000" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <text x="315" y="131" text-anchor="middle" fill="#EE0000" font-family="Red Hat Display" font-size="12" font-weight="bold">50%</text>
+              <text x="315" y="150" text-anchor="middle" fill="#EE0000" font-family="Red Hat Text" font-size="11">&lt; 75%</text>
+              <text x="315" y="165" text-anchor="middle" fill="#EE0000" font-family="Red Hat Text" font-size="9">&#x2717; continue</text>
+            </g>
+
+            <!-- Step 3: Round 2 — 4 more samples (total 6) -->
+            <line data-step="3" class="anim-node" x1="370" y1="137" x2="400" y2="137" stroke="#EE0000" stroke-width="2"/>
+            <g data-step="3" class="anim-node">
+              <text x="460" y="30" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="10">Round 2 (+4 new)</text>
+            </g>
+            <!-- Kept from round 1 -->
+            <g data-step="3" class="anim-node">
+              <rect x="410" y="42" width="70" height="28" rx="5" fill="#EE0000" opacity="0.6"/>
+              <text x="445" y="60" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42" (R1)</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.05s">
+              <rect x="410" y="74" width="70" height="28" rx="5" fill="#555" opacity="0.6"/>
+              <text x="445" y="92" text-anchor="middle" fill="#aaa" font-family="Red Hat Text" font-size="9">"37" (R1)</text>
+            </g>
+            <!-- 4 new samples -->
+            <g data-step="3" class="anim-node" style="transition-delay:0.1s">
+              <rect x="410" y="110" width="70" height="28" rx="5" fill="#EE0000"/>
+              <text x="445" y="128" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.15s">
+              <rect x="410" y="142" width="70" height="28" rx="5" fill="#EE0000"/>
+              <text x="445" y="160" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.2s">
+              <rect x="410" y="174" width="70" height="28" rx="5" fill="#EE0000"/>
+              <text x="445" y="192" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42"</text>
+            </g>
+            <g data-step="3" class="anim-node" style="transition-delay:0.25s">
+              <rect x="410" y="206" width="70" height="28" rx="5" fill="#EE0000"/>
+              <text x="445" y="224" text-anchor="middle" fill="white" font-family="Red Hat Text" font-size="9" font-weight="bold">"42"</text>
+            </g>
+
+            <!-- Step 4: Threshold check — 83% >= 75% in green -->
+            <g data-step="4" class="anim-node">
+              <rect x="500" y="108" width="100" height="58" rx="8" fill="none" stroke="#3E8635" stroke-width="2"/>
+              <text x="550" y="128" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="12" font-weight="bold">83%</text>
+              <text x="550" y="147" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="11">&ge; 75%</text>
+              <text x="550" y="162" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="9" font-weight="bold">&#x2713; stop!</text>
+            </g>
+            <g data-step="4" class="anim-node" style="transition-delay:0.2s">
+              <text x="550" y="190" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9">5 of 6 = "42"</text>
+            </g>
+
+            <!-- Step 5: Final output -->
+            <line data-step="5" class="anim-node" x1="605" y1="137" x2="640" y2="137" stroke="#3E8635" stroke-width="2"/>
+            <g data-step="5" class="anim-node">
+              <rect x="645" y="105" width="90" height="60" rx="10" fill="none" stroke="#3E8635" stroke-width="2"/>
+              <text x="690" y="132" text-anchor="middle" fill="#3E8635" font-family="Red Hat Display" font-size="16" font-weight="bold">"42"</text>
+              <text x="690" y="155" text-anchor="middle" fill="#3E8635" font-family="Red Hat Text" font-size="18" font-weight="bold">&#x2713;</text>
+            </g>
+
+            <!-- Cost savings note -->
+            <g data-step="5" class="anim-node" style="transition-delay:0.3s">
+              <text x="375" y="265" text-anchor="middle" fill="#888" font-family="Red Hat Text" font-size="9" font-style="italic">Used 6 samples instead of full budget. Easy queries resolve in 2-4 samples.</text>
+            </g>
+          </svg>
+        `
       }
     };
+
+    // Back-to-top button
+    const backToTop = document.getElementById('back-to-top');
+    const heroSection = document.getElementById('hero');
+    const backToTopObserver = new IntersectionObserver(([entry]) => {
+      backToTop.classList.toggle('visible', !entry.isIntersecting);
+    }, { threshold: 0 });
+    backToTopObserver.observe(heroSection);
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   </script>
 </body>
 </html>
